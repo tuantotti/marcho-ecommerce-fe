@@ -1,0 +1,87 @@
+.admin {
+  height: 100vh;
+  background-color: #e9ecef;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &-title {
+    font-size: 34px;
+    color: #555;
+    padding-top: 30px;
+  }
+  &-form-login {
+    margin-top: 30px;
+    width: 380px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
+  }
+}
+.mat-card-title {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  padding-bottom: 20px;
+  font-weight: 400;
+}
+
+:host ::ng-deep .mat-form-field-label,
+:host ::ng-deep .mat-checkbox-label {
+  color: #8d8d8d;
+}
+
+.login-form {
+  &__field {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  &__action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 0;
+}
+:host ::ng-deep .mat-checkbox-background,
+:host ::ng-deep .mat-checkbox-frame {
+  border-radius: 0;
+}
+
+.mat-raised-button {
+  width: 100%;
+  color: white;
+  font-weight: 400;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+:host
+  ::ng-deep
+  .mat-form-field-flex:hover
+  .mat-form-field-appearance-outline
+  .mat-form-field-outline-start,
+:host
+  ::ng-deep
+  .mat-form-field-flex:hover
+  .mat-form-field-appearance-outline
+  .mat-form-field-outline-end {
+  border: 1px solid #ff4081;
+}
+
+:host ::ng-deep {
+  .p-button {
+    width: 100%;
+    margin: 8px 0;
+  }
+  .p-button:enabled:focus {
+    box-shadow: none;
+  }
+  .p-divider-horizontal.p-divider-left {
+    justify-content: center;
+  }
+}

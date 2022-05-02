@@ -1,0 +1,38 @@
+:host ::ng-deep .mat-form-field-label,
+:host ::ng-deep .mat-checkbox-label {
+  color: #8d8d8d;
+}
+.login-form {
+  &__field {
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  &__button {
+    margin-top: 40px;
+  }
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 0;
+}
+:host ::ng-deep .mat-checkbox-background,
+:host ::ng-deep .mat-checkbox-frame {
+  border-radius: 0;
+}
+
+.mat-raised-button {
+  width: 100%;
+  color: white;
+  font-weight: 400;
+  background-color: black;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.register-description {
+  color: #8d8d8d;
+  font-weight: 300;
+  margin-top: 30px;
+  margin-bottom: 0;
+}

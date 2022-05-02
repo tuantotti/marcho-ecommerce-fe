@@ -1,0 +1,77 @@
+<div class="admin">
+  <h2 class="admin-title">Log In</h2>
+  <mat-card action="" class="admin-form-login">
+    <mat-card-title>Sign in to admin account</mat-card-title>
+    <mat-card-content>
+      <form class="login-form" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+        <mat-form-field class="login-form__field" appearance="outline">
+          <mat-label>Username or Email address</mat-label>
+          <input
+            type="email"
+            matInput
+            required
+            formControlName="userNameOrEmailAddress"
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="formLogin.get('userNameOrEmailAddress')?.invalid
+          || formLogin.get('userNameOrEmailAddress')?.errors?.['required']
+          || formLogin.get('userNameOrEmailAddress')?.touched"
+          >
+            Username or Email address is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-form__field" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            [type]="!showPassword ? 'password' : 'text'"
+            matInput
+            required
+            formControlName="password"
+          />
+          <mat-icon matSuffix (click)="showPassword = !showPassword">
+            {{ showPassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+          <mat-error
+            *ngIf="formLogin.get('password')?.invalid
+          || formLogin.get('password')?.errors?.['required']
+          || formLogin.get('password')?.touched"
+          >
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <div class="login-form__action">
+          <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
+          <div class="login-form__button">
+            <button mat-raised-button color="accent" type="submit">
+              Log in
+            </button>
+          </div>
+        </div>
+      </form>
+      <p-divider>
+        <b>OR</b>
+      </p-divider>
+      <div class="login-social">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Sign up with Facebook"
+          class="p-button-raised"
+        >
+          <i class="pi pi-facebook"></i>
+        </button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Sign up with Google"
+          class="p-button-raised p-button-danger"
+        >
+          <i class="pi pi-google"></i>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

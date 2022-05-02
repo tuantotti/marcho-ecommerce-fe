@@ -1,0 +1,225 @@
+.content-header {
+  padding: 30px 30px 15px;
+}
+.content-main {
+  margin: 30px;
+  padding: 30px;
+  background-color: white;
+}
+:host ::ng-deep {
+  .mat-drawer,
+  .p-panelmenu {
+    width: 250px !important;
+  }
+  .mat-drawer-content,
+  .mat-drawer-inner-container {
+    background-color: #f8fafe;
+  }
+  .p-button:focus {
+    box-shadow: none;
+  }
+  .p-button.p-button-text:enabled:hover {
+    background-color: transparent;
+  }
+  p-toolbar {
+    width: 100%;
+  }
+  .p-toolbar {
+    padding: 30px;
+    border-radius: 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    background-color: white;
+  }
+  .p-button.p-button-text {
+    color: #929bb5;
+  }
+  .p-button.p-button-text:enabled:hover {
+    color: #737373;
+  }
+  .pi {
+    font-size: 18px !important;
+    font-weight: 500;
+    color: #6c757d;
+  }
+  .p-badge {
+    min-width: 1rem;
+    height: 1rem;
+    line-height: 1rem;
+    background: #ff4081;
+  }
+  .p-overlay-badge {
+    margin: 0 6px;
+  }
+  .p-toolbar-group-left {
+    column-gap: 20px;
+  }
+  .pi-bell,
+  .pi-comments {
+    position: relative;
+    cursor: pointer;
+  }
+  .pi-bell:active,
+  .pi-bell:hover,
+  .pi-comments:active,
+  .pi-comments:hover {
+    font-weight: 700;
+  }
+  .p-divider {
+    margin: 0;
+  }
+  .p-panelmenu {
+    margin-top: 30px;
+  }
+  .p-panelmenu-panel {
+    margin: 4px 20px;
+  }
+  .p-panelmenu .p-panelmenu-header > a {
+    padding: 0.75rem 1rem;
+  }
+  .p-panelmenu .p-panelmenu-header > a,
+  .p-panelmenu .p-panelmenu-content {
+    border: 0;
+  }
+  .p-panelmenu .p-panelmenu-header > a:focus,
+  .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:focus {
+    box-shadow: none;
+  }
+  .side-bar__avatar .p-avatar.p-avatar-lg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) > a {
+    background-color: transparent;
+  }
+  .p-panelmenu .p-panelmenu-header.p-highlight > a {
+    background-color: #e9ecef;
+    border-radius: 7px;
+  }
+  .p-highlight > .p-panelmenu-header-link {
+    background-color: #e9ecef;
+  }
+  .p-panelmenu-content {
+    padding: 0;
+    background-color: transparent;
+  }
+  .p-panelmenu .p-submenu-list {
+    margin: 4px 0;
+  }
+  .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
+    border-radius: 7px;
+    padding: 0.5rem 1rem;
+  }
+}
+.container-fluid,
+.mat-drawer-container {
+  height: 100%;
+  padding: 0;
+}
+.mat-drawer {
+  min-width: 250px;
+}
+
+.dashboard-header {
+  display: flex;
+  &__navbar {
+    display: flex;
+    column-gap: 20px;
+  }
+  &__notify,
+  &__comment {
+    position: absolute;
+    top: 100%;
+    right: calc(0% + 4px);
+    min-width: 300px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 18%);
+    color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    &-item {
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+      padding: 8px 16px;
+    }
+    &-name {
+      margin: 0px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      line-height: normal;
+    }
+    &-message {
+      display: block;
+      font-size: 14px;
+      line-height: normal;
+    }
+    &-time {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      column-gap: 6px;
+    }
+  }
+}
+h4 {
+  margin: 0;
+}
+
+.single_quick_activity {
+  border-radius: 10px;
+  transition: 0.5s;
+  padding: 41px 30px;
+  position: relative;
+  background: #3b76ef;
+  color: white;
+  margin-bottom: 30px;
+  & > h4 {
+    font-size: 17px;
+    margin-bottom: 0;
+    font-weight: 700;
+    transition: 0.5s;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  & > h3 {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 0;
+    font-weight: 900;
+    transition: 0.5s;
+    color: #fff;
+    margin-bottom: 7px;
+  }
+  & > p {
+    transition: 0.5s;
+    font-size: 13px;
+    font-weight: 400;
+    color: #fff;
+  }
+}
+
+.side-bar {
+  &__avatar {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 15px;
+    background: white;
+    margin: 30px 10px 20px;
+    border-radius: 7px;
+    &-text {
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+}
+.bar-chart,
+.pie-chart {
+  background-color: rgba(247, 250, 255, 0.7);
+  padding: 30px;
+  height: 100%;
+  border-radius: 7px;
+}

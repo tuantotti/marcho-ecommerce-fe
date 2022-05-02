@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 offset-4">
+      <!-- <nav mat-tab-nav-bar color="accent">
+        <a
+          mat-tab-link
+          *ngFor="let page of pages"
+          (click)="activePage = page"
+          [active]="activePage == page"
+          [routerLink]="page.toLowerCase()"
+        >
+          {{ page }}
+        </a>
+      </nav> -->
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option
+          *ngFor="let page of pages"
+          [value]="page"
+          disableRipple
+          [routerLink]="page.toLowerCase()"
+          routerLinkActive="mat-list-single-selected-option"
+        >
+          {{ page }}
+        </mat-list-option>
+      </mat-selection-list>
+      <div class="authentication-page"></div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

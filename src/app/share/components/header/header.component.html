@@ -1,0 +1,31 @@
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 flex align-center" routerLink="/home">
+        <img src="assets/img/logo.png" alt="logo" class="logo-img" />
+      </div>
+      <div class="col-md-8 flex align-center justify-center">
+        <mat-selection-list #shoes [multiple]="false">
+          <mat-list-option
+            *ngFor="let page of pages"
+            [value]="page"
+            disableRipple
+            [routerLink]="page.toLowerCase()"
+            routerLinkActive="mat-list-single-selected-option"
+          >
+            {{ page }}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+      <div class="col-md-2 flex align-center">
+        <mat-icon routerLink="user"> person_outline </mat-icon>
+        <mat-icon matBadge="15" matBadgeColor="accent" matBadgeSize="small">
+          favorite_border
+        </mat-icon>
+        <mat-icon matBadge="15" matBadgeColor="accent" matBadgeSize="small">
+          shopping_cart
+        </mat-icon>
+      </div>
+    </div>
+  </div>
+</header>

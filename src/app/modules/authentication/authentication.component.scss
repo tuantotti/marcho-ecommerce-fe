@@ -1,0 +1,34 @@
+// :host ::ng-deep .mat-tab-links {
+//   justify-content: center;
+// }
+// .mat-tab-link {
+//   opacity: 0.6;
+// }
+
+// :host ::ng-deep .mat-tab-label-active {
+//   font-weight: bold;
+//   opacity: 1;
+//   color: #ff4081;
+// }
+.authentication-page {
+  margin-top: 60px;
+}
+.mat-selection-list {
+  display: flex;
+}
+.mat-list-option:hover {
+  background-color: white;
+}
+:host ::ng-deep .mat-list-text {
+  padding: 0 !important;
+  text-align: center;
+}
+.mat-list-single-selected-option {
+  background-color: white;
+  font-weight: bold;
+  color: #ff4081;
+  border-bottom: 2px solid #ff4081;
+}
+// .mat-tab-nav-bar {
+//   border: none;
+// }
