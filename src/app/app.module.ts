@@ -10,10 +10,9 @@ import { MaterialModule } from './core/material/material.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './core/service/interceptor/interceptor.service';
-import { AdminComponent } from './modules/admin/admin.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, AdminComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -10,6 +10,18 @@ import { AvatarModule } from 'primeng/avatar';
 import { ChartModule } from 'primeng/chart';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DividerModule } from 'primeng/divider';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+
 const PrimeComponents = [
   AccordionModule,
   CheckboxModule,
@@ -22,6 +34,17 @@ const PrimeComponents = [
   ChartModule,
   PanelMenuModule,
   DividerModule,
+  TableModule,
+  ToastModule,
+  ConfirmDialogModule,
+  DialogModule,
+  RatingModule,
+  FormsModule,
+  FileUploadModule,
+  InputTextModule,
+  InputNumberModule,
+  InputTextareaModule,
+  RadioButtonModule,
 ];
 
 @NgModule({

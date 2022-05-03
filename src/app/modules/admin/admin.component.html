@@ -1,1 +1,136 @@
-<router-outlet></router-outlet>
+<div class="container-fluid">
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer mode="side" opened class="side-bar">
+      <div class="side-bar__avatar">
+        <p-avatar
+          image="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/109076969_2551991108447345_3171850497688617294_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E4XpeaS473YAX8LMXzB&_nc_ht=scontent.fhan3-4.fna&oh=00_AT-UCFabc_2h4cS01DXK9jagsRWf29GJAQf4t1tFRyv2IQ&oe=628E5547"
+          styleClass="mr-2"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+        <h3 class="side-bar__avatar-text">Welcom Admin!</h3>
+      </div>
+      <p-divider></p-divider>
+      <p-panelMenu [model]="items"></p-panelMenu>
+    </mat-drawer>
+
+    <div class="content">
+      <div class="content-header">
+        <div class="row">
+          <div class="col-12">
+            <div class="dashboard-header">
+              <p-toolbar>
+                <div class="p-toolbar-group-left">
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-bars"
+                    class="p-button-rounded p-button-text"
+                    (click)="drawer.toggle()"
+                  ></button>
+                  <ul class="dashboard-header__navbar">
+                    <li>Home</li>
+                    <li>Contact</li>
+                  </ul>
+                </div>
+
+                <div class="p-toolbar-group-right">
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-search"
+                    class="p-button-rounded p-button-text"
+                  ></button>
+                  <i
+                    class="pi pi-bell"
+                    pBadge
+                    value="2"
+                    (click)="
+                      isShowNotify = !isShowNotify; isShowComment = false
+                    "
+                  >
+                    <ul *ngIf="isShowNotify" class="dashboard-header__notify">
+                      <li class="dashboard-header__notify-item">
+                        <div class="div">
+                          <p-avatar
+                            image="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/109076969_2551991108447345_3171850497688617294_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E4XpeaS473YAX8LMXzB&_nc_ht=scontent.fhan3-4.fna&oh=00_AT-UCFabc_2h4cS01DXK9jagsRWf29GJAQf4t1tFRyv2IQ&oe=628E5547"
+                            styleClass="mr-2"
+                            size="large"
+                            shape="circle"
+                          ></p-avatar>
+                        </div>
+                        <div class="div">
+                          <h3 class="dashboard-header__notify-name">
+                            Brad Diesel
+                          </h3>
+                          <h4 class="dashboard-header__notify-message">
+                            Đã đặt đơn hàng SPXVN1205
+                          </h4>
+                          <div class="dashboard-header__notify-time">
+                            <i class="pi pi-clock"></i>
+                            <h4>4 Hours Ago</h4>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </i>
+                  <i
+                    class="pi pi-comments"
+                    pBadge
+                    value="2"
+                    (click)="
+                      isShowComment = !isShowComment; isShowNotify = false
+                    "
+                  >
+                    <ul *ngIf="isShowComment" class="dashboard-header__comment">
+                      <li class="dashboard-header__comment-item">
+                        <div class="div">
+                          <p-avatar
+                            image="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/109076969_2551991108447345_3171850497688617294_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E4XpeaS473YAX8LMXzB&_nc_ht=scontent.fhan3-4.fna&oh=00_AT-UCFabc_2h4cS01DXK9jagsRWf29GJAQf4t1tFRyv2IQ&oe=628E5547"
+                            styleClass="mr-2"
+                            size="large"
+                            shape="circle"
+                          ></p-avatar>
+                        </div>
+                        <div class="div">
+                          <h3 class="dashboard-header__comment-name">
+                            Brad Diesel đã đánh giá sản phẩm ABC
+                          </h3>
+                          <h4 class="dashboard-header__comment-message">
+                            Sản phẩm tốt, giao hành nhanh, 5 sao !
+                          </h4>
+                          <div class="dashboard-header__comment-time">
+                            <i class="pi pi-clock"></i>
+                            <h4>4 Hours Ago</h4>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </i>
+                </div>
+              </p-toolbar>
+              <!-- <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-bars"
+                class="p-button-rounded p-button-text"
+                (click)="drawer.toggle()"
+              ></button>
+              <ul class="dashboard-header__navbar">
+                <li>Home</li>
+                <li>Contact</li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-main">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-container>
+</div>
