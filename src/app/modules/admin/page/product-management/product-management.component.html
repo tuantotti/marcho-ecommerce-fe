@@ -16,23 +16,13 @@
             pButton
             pRipple
             icon="pi pi-trash"
-            class="p-button-danger"
+            class="p-button-danger delete-selected-products"
             (click)="deleteSelectedProducts()"
             [disabled]="!selectedProducts || !selectedProducts.length"
           ></button>
         </ng-template>
 
         <ng-template pTemplate="right">
-          <p-fileUpload
-            mode="basic"
-            accept="image/*"
-            [maxFileSize]="1000000"
-            label="Import"
-            chooseLabel="Import"
-            class="mr-2 inline-block"
-            (onUpload)="onUpload($event)"
-            #fubauto
-          ></p-fileUpload>
           <button
             pButton
             pRipple
@@ -84,11 +74,11 @@
               Name <p-sortIcon field="name"></p-sortIcon>
             </th>
             <th>Image</th>
-            <th pSortableColumn="price">
-              Price <p-sortIcon field="price"></p-sortIcon>
+            <th pSortableColumn="priceOut">
+              Price <p-sortIcon field="priceOut"></p-sortIcon>
             </th>
-            <th pSortableColumn="category">
-              Category <p-sortIcon field="category"></p-sortIcon>
+            <th pSortableColumn="categoryDto.name">
+              Category <p-sortIcon field="categoryDto.name"></p-sortIcon>
             </th>
             <th pSortableColumn="rating">
               Reviews <p-sortIcon field="rating"></p-sortIcon>
@@ -108,7 +98,7 @@
             <td>
               <img
                 [src]="
-                  'https://old.joolux.com/media/catalog/product/' +
+                  'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
                   product.urlImage
                 "
                 [alt]="product.name"
@@ -119,7 +109,9 @@
             <td class="product-item__price">
               {{ product.priceOut | currency: "VND" }}
             </td>
-            <td class="product-item__category">{{ product.category }}</td>
+            <td class="product-item__category">
+              {{ product.categoryDto!.name }}
+            </td>
             <td>
               <p-rating
                 [ngModel]="product.rating"
@@ -166,20 +158,24 @@
 
     <p-dialog
       [(visible)]="productDialog"
-      [style]="{ width: '450px' }"
+      [style]="{ width: '80vw' }"
       header="Product Details"
       [modal]="true"
       styleClass="p-fluid"
     >
       <ng-template pTemplate="content">
-        <img
-          [src]="
-            'https://old.joolux.com/media/catalog/product/' + product.urlImage
-          "
-          [alt]="product.urlImage"
-          class="product-image"
-          *ngIf="product.urlImage"
-        />
+        <div class="field">
+          <div class="product-image-list">
+            <img
+              *ngFor="let imgPath of product.subImage"
+              class="product-image"
+              [src]="
+                'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
+                imgPath
+              "
+            />
+          </div>
+        </div>
         <div class="field">
           <label for="name">Name</label>
           <input
@@ -206,6 +202,25 @@
             cols="20"
           ></textarea>
         </div>
+        <div class="field" *ngIf="!product.urlImage">
+          <label for="name">Product Image</label>
+          <p-fileUpload
+            name="demo[]"
+            (onUpload)="onUpload($event)"
+            [multiple]="true"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            url="./upload.php"
+          >
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">
+                  {{ file.name }} - {{ file.size }} bytes
+                </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </div>
         <div class="field">
           <label for="inventoryStatus">Inventory Status</label>
           <p-dropdown
@@ -224,41 +239,37 @@
         <div class="field">
           <label class="mb-3">Category</label>
           <div class="formgrid grid">
-            <div class="field-radiobutton col-6">
+            <div class="field-radiobutton col-3">
               <p-radioButton
                 id="category1"
-                name="category"
-                value="Accessories"
-                [(ngModel)]="product.category"
+                value="Bag"
+                [(ngModel)]="product.categoryDto!.name"
               ></p-radioButton>
-              <label for="category1">Accessories</label>
+              <label for="category1">Bag</label>
             </div>
-            <div class="field-radiobutton col-6">
+            <div class="field-radiobutton col-3">
               <p-radioButton
                 id="category2"
-                name="category"
-                value="Clothing"
-                [(ngModel)]="product.category"
+                value="Shirt"
+                [(ngModel)]="product.categoryDto!.name"
               ></p-radioButton>
-              <label for="category2">Clothing</label>
+              <label for="category2">Shirt</label>
             </div>
-            <div class="field-radiobutton col-6">
+            <div class="field-radiobutton col-3">
               <p-radioButton
                 id="category3"
-                name="category"
-                value="Electronics"
-                [(ngModel)]="product.category"
+                value="Pant"
+                [(ngModel)]="product.categoryDto!.name"
               ></p-radioButton>
-              <label for="category3">Electronics</label>
+              <label for="category3">Pant</label>
             </div>
-            <div class="field-radiobutton col-6">
+            <div class="field-radiobutton col-3">
               <p-radioButton
                 id="category4"
-                name="category"
-                value="Fitness"
-                [(ngModel)]="product.category"
+                value="Accessory"
+                [(ngModel)]="product.categoryDto!.name"
               ></p-radioButton>
-              <label for="category4">Fitness</label>
+              <label for="category4">Accessory</label>
             </div>
           </div>
         </div>
@@ -269,9 +280,9 @@
         <div class="formgrid grid">
           <div class="field col-sm-6">
             <div class="product-item__price">
-              <label for="price">Price</label>
+              <label for="priceOut">Price</label>
               <p-inputNumber
-                id="price"
+                id="priceOut"
                 [(ngModel)]="product.priceOut"
                 mode="currency"
                 currency="VND"

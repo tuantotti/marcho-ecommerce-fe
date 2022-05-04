@@ -140,15 +140,35 @@
     color: #3b82f6;
     border-color: transparent;
   }
+  .p-fileupload-buttonbar {
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+  .p-fileupload-content {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  .p-button-icon-only {
+    padding: 6px;
+    border-radius: 50%;
+  }
+  .p-fileupload .p-fileupload-buttonbar .p-button.p-fileupload-choose.p-focus {
+    box-shadow: none;
+  }
   /* Responsive */
   .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
     display: none;
   }
 }
+.product-image-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 30px;
+  margin-bottom: 16px;
+}
 :host ::ng-deep .p-dialog .product-image {
   width: 150px;
-  margin: 0 auto 2rem auto;
-  display: block;
 }
 
 .management-product {
@@ -210,6 +230,11 @@
     font-weight: 300;
     font-size: 14px;
   }
+}
+
+.delete-selected-products {
+  padding: 8px 0;
+  border-radius: 6px;
 }
 
 @media screen and (max-width: 960px) {

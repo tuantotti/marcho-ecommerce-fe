@@ -69,48 +69,79 @@
   .p-divider {
     margin: 0;
   }
-  .p-panelmenu {
-    margin-top: 30px;
+  .pi-home,
+  .pi-chart-bar,
+  .pi-users,
+  .pi-angle-right {
+    font-weight: 300;
   }
-  .p-panelmenu-panel {
-    margin: 4px 20px;
+  .menu {
+    &__group {
+      margin: 30px 6px 0;
+    }
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      &:hover {
+        background-color: #e9ecef;
+      }
+      &-left {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 10px;
+      }
+      &-text {
+        font-size: 16px;
+        font-weight: 300;
+        color: #676b84;
+      }
+    }
   }
-  .p-panelmenu .p-panelmenu-header > a {
-    padding: 0.75rem 1rem;
+  .menu__item--active .menu__item-left .menu__item-text,
+  .menu__item--active .menu__item-left .pi {
+    font-weight: 700;
   }
-  .p-panelmenu .p-panelmenu-header > a,
-  .p-panelmenu .p-panelmenu-content {
-    border: 0;
-  }
-  .p-panelmenu .p-panelmenu-header > a:focus,
-  .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:focus {
-    box-shadow: none;
-  }
-  .side-bar__avatar .p-avatar.p-avatar-lg {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  .p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) > a {
-    background-color: transparent;
-  }
-  .p-panelmenu .p-panelmenu-header.p-highlight > a {
-    background-color: #e9ecef;
-    border-radius: 7px;
-  }
-  .p-highlight > .p-panelmenu-header-link {
-    background-color: #e9ecef;
-  }
-  .p-panelmenu-content {
-    padding: 0;
-    background-color: transparent;
-  }
-  .p-panelmenu .p-submenu-list {
-    margin: 4px 0;
-  }
-  .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
-    border-radius: 7px;
-    padding: 0.5rem 1rem;
-  }
+  // .p-panelmenu .p-panelmenu-header > a {
+  //   padding: 0.75rem 1rem;
+  // }
+  // .p-panelmenu .p-panelmenu-header > a,
+  // .p-panelmenu .p-panelmenu-content {
+  //   border: 0;
+  // }
+  // .p-panelmenu .p-panelmenu-header > a:focus,
+  // .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:focus {
+  //   box-shadow: none;
+  // }
+  // .side-bar__avatar .p-avatar.p-avatar-lg {
+  //   width: 2.5rem;
+  //   height: 2.5rem;
+  // }
+  // .p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) > a {
+  //   background-color: transparent;
+  // }
+  // .p-panelmenu .p-panelmenu-header.p-highlight > a {
+  //   background-color: #e9ecef;
+  //   border-radius: 7px;
+  // }
+  // .p-highlight > .p-panelmenu-header-link {
+  //   background-color: #e9ecef;
+  // }
+  // .p-panelmenu-content {
+  //   padding: 0;
+  //   background-color: transparent;
+  // }
+  // .p-panelmenu .p-submenu-list {
+  //   margin: 4px 0;
+  // }
+  // .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
+  //   border-radius: 7px;
+  //   padding: 0.5rem 1rem;
+  // }
 }
 .container-fluid,
 .mat-drawer-container {

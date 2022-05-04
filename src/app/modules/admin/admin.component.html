@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer mode="side" opened class="side-bar">
+    <!-- opened -->
+    <mat-drawer #drawer mode="side" class="side-bar">
       <div class="side-bar__avatar">
         <p-avatar
           image="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/109076969_2551991108447345_3171850497688617294_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E4XpeaS473YAX8LMXzB&_nc_ht=scontent.fhan3-4.fna&oh=00_AT-UCFabc_2h4cS01DXK9jagsRWf29GJAQf4t1tFRyv2IQ&oe=628E5547"
@@ -11,7 +12,47 @@
         <h3 class="side-bar__avatar-text">Welcom Admin!</h3>
       </div>
       <p-divider></p-divider>
-      <p-panelMenu [model]="items"></p-panelMenu>
+      <ul class="menu__group">
+        <li
+          class="menu__item"
+          routerLinkActive="menu__item--active"
+          routerLink="dashboard"
+        >
+          <div class="menu__item-left">
+            <i class="pi pi-home"></i>
+            <span class="menu__item-text">Dashboard</span>
+          </div>
+          <div class="menu__item-right">
+            <i class="pi pi-angle-right"></i>
+          </div>
+        </li>
+        <li
+          class="menu__item"
+          routerLinkActive="menu__item--active"
+          routerLink="product-management"
+        >
+          <div class="menu__item-left">
+            <i class="pi pi-chart-bar"></i>
+            <span class="menu__item-text">Product Management</span>
+          </div>
+          <div class="menu__item-right">
+            <i class="pi pi-angle-right"></i>
+          </div>
+        </li>
+        <li
+          class="menu__item"
+          routerLinkActive="menu__item--active"
+          routerLink="user-management"
+        >
+          <div class="menu__item-left">
+            <i class="pi pi-users"></i>
+            <span class="menu__item-text">User Management</span>
+          </div>
+          <div class="menu__item-right">
+            <i class="pi pi-angle-right"></i>
+          </div>
+        </li>
+      </ul>
     </mat-drawer>
 
     <div class="content">

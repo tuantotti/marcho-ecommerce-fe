@@ -21,7 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
-
+import { DataViewModule } from 'primeng/dataview';
 const PrimeComponents = [
   AccordionModule,
   CheckboxModule,
@@ -45,6 +45,8 @@ const PrimeComponents = [
   InputNumberModule,
   InputTextareaModule,
   RadioButtonModule,
+  DataViewModule,
+  DropdownModule,
 ];
 
 @NgModule({

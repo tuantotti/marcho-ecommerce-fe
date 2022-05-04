@@ -21,13 +21,14 @@ export class ProductManagementComponent implements OnInit {
 
   submitted!: boolean;
   statuses!: any[];
+  uploadedFiles: any[] = [];
   constructor(
     private productService: ProductManagementService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {}
   openNew() {
-    this.product = {};
+    this.resetProduct();
     this.submitted = false;
     this.productDialog = true;
   }
@@ -58,7 +59,7 @@ export class ProductManagementComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.productService.deleteProduct(product.id!);
-        this.product = {};
+        this.resetProduct();
       },
     });
   }
@@ -74,16 +75,20 @@ export class ProductManagementComponent implements OnInit {
       }
 
       this.productDialog = false;
-      this.product = {};
+      this.resetProduct();
     }
   }
-  onUpload(event: Event) {
+  onUpload(event: any) {
     console.log(event);
-    // for(let file of event.files) {
-    //     this.uploadedFiles.push(file);
-    // }
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
 
-    // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    this.messageService.add({
+      severity: 'info',
+      summary: 'File Uploaded',
+      detail: '',
+    });
   }
   openEditProductDialog(product: IProduct) {
     this.product = { ...product };
@@ -98,6 +103,11 @@ export class ProductManagementComponent implements OnInit {
       (event.target! as HTMLInputElement).value,
       'contains'
     );
+  }
+  resetProduct() {
+    this.product = {
+      categoryDto: {},
+    };
   }
   ngOnInit(): void {
     this.productService.getProducts();

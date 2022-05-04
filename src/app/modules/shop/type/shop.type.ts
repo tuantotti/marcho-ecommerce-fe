@@ -10,14 +10,4 @@ export interface IProduct {
   urlImage?: string;
   subImage?: string[];
   rating?: number;
-  multipartFile?: string;
-  color?: string;
-  brand?: string;
-  size?: string;
-  countBuy?: number;
-  discount?: string;
-  categoryDto?: {
-    id?: number;
-    name?: string;
-  };
 }
