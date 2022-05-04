@@ -10,7 +10,7 @@ import { ShopService } from './services/shop.service';
   styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('productTable') dataView!: DataView;
+  @ViewChild('dataView') dataView!: DataView;
   constructor(private shopService: ShopService) {}
   products!: IProduct[];
 
@@ -19,8 +19,9 @@ export class ShopComponent implements OnInit {
   sortOrder!: number;
 
   sortField!: string;
-  sortKey!: any;
+  sortKey!: string;
   onSortChange(event: any) {
+    console.log(event);
     let value = event.value;
 
     if (value.indexOf('!') === 0) {
@@ -35,6 +36,10 @@ export class ShopComponent implements OnInit {
     this.dataView.filter((event.target! as HTMLInputElement).value);
   }
   ngOnInit(): void {
+    this.sortOptions = [
+      { label: 'Price High to Low', value: '!priceOut' },
+      { label: 'Price Low to High', value: 'priceOut' },
+    ];
     this.shopService.getProducts();
 
     this.shopService.products$.subscribe((data) => (this.products = data));
