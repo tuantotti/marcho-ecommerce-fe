@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IProduct } from './type/shop.type';
 import { SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
+import { ShopService } from './services/shop.service';
 
 @Component({
   selector: 'app-shop',
@@ -10,7 +11,7 @@ import { DataView } from 'primeng/dataview';
 })
 export class ShopComponent implements OnInit {
   @ViewChild('productTable') dataView!: DataView;
-  constructor() {}
+  constructor(private shopService: ShopService) {}
   products!: IProduct[];
 
   sortOptions!: SelectItem[];
@@ -33,5 +34,9 @@ export class ShopComponent implements OnInit {
   handleFilterByName(event: Event) {
     this.dataView.filter((event.target! as HTMLInputElement).value);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.shopService.getProducts();
+
+    this.shopService.products$.subscribe((data) => (this.products = data));
+  }
 }
