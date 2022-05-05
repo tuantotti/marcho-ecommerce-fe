@@ -20,6 +20,38 @@ export class ShopComponent implements OnInit {
 
   sortField!: string;
   sortKey!: string;
+  rangeValues: number[] = [20, 80];
+  colorFilterList = [
+    {
+      title: 'Blue',
+      color: '#03aeef',
+    },
+    {
+      title: 'Red',
+      color: '#f52475',
+    },
+    {
+      title: 'Green',
+      color: '#25d5ac',
+    },
+    {
+      title: 'Orange',
+      color: '#ff7e00',
+    },
+    {
+      title: 'Black',
+      color: '#000',
+    },
+    {
+      title: 'Purple',
+      color: '#92399a',
+    },
+    {
+      title: 'Grey',
+      color: '#868a93',
+    },
+  ];
+  categoryFilterList = ['Shirt', 'Pant', 'Shoes', 'Accessory'];
   onSortChange(event: any) {
     console.log(event);
     let value = event.value;
