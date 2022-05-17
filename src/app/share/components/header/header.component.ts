@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'app/modules/cart/service/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  pages = ['HOME', 'SHOP'];
+  cartProductsNumber!: number;
+  pages = ['HOME', 'SHOP', 'PAGE', 'CONTACT', 'BLOG'];
   activePage = this.pages[0];
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartService.getCartProducts();
+
+    this.cartService.cartProducts$.subscribe((data) => {
+      this.cartProductsNumber = data.length;
+    });
+  }
 }

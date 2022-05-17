@@ -3,6 +3,8 @@ import { IProduct } from './type/shop.type';
 import { SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
 import { ShopService } from './services/shop.service';
+import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../cart/service/cart.service';
 
 @Component({
   selector: 'app-shop',
@@ -11,9 +13,13 @@ import { ShopService } from './services/shop.service';
 })
 export class ShopComponent implements OnInit {
   @ViewChild('dataView') dataView!: DataView;
-  constructor(private shopService: ShopService) {}
+  constructor(
+    private shopService: ShopService,
+    private cartService: CartService,
+    private toast: ToastrService
+  ) {}
   products!: IProduct[];
-
+  cartProducts!: IProduct[];
   sortOptions!: SelectItem[];
 
   sortOrder!: number;
@@ -67,6 +73,18 @@ export class ShopComponent implements OnInit {
   handleFilterByName(event: Event) {
     this.dataView.filter((event.target! as HTMLInputElement).value);
   }
+  handleAddProduct(product: IProduct) {
+    let count = 0;
+    this.cartProducts.map((p) => {
+      if (p.name === product.name) {
+        count++;
+        this.toast.error(`Product: ${product.name} is already added!`);
+      }
+    });
+    if (count === 0) {
+      this.cartService.addProductToCart({ ...product, quantity: 1 });
+    }
+  }
   ngOnInit(): void {
     this.sortOptions = [
       { label: 'Price High to Low', value: '!priceOut' },
@@ -75,5 +93,8 @@ export class ShopComponent implements OnInit {
     this.shopService.getProducts();
 
     this.shopService.products$.subscribe((data) => (this.products = data));
+    this.cartService.cartProducts$.subscribe(
+      (data) => (this.cartProducts = data)
+    );
   }
 }

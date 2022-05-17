@@ -14,13 +14,7 @@ export class ShopApiService {
   getProducts(): Observable<any> {
     return this.http.get(`${this.API_URL}/product`);
   }
-  saveProduct(product: IProduct): Observable<IProduct> {
-    return this.http.post(`${this.API_URL}/product`, product);
-  }
-  editProduct(product: IProduct): Observable<IProduct> {
-    return this.http.put(`${this.API_URL}/product/${product.id}`, product);
-  }
-  deleteProduct(id: number): Observable<IProduct> {
-    return this.http.delete(`${this.API_URL}/product/${id}`);
+  getCartProducts(): Observable<any> {
+    return this.http.get(`${this.API_URL}/cart`);
   }
 }

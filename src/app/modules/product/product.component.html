@@ -1,0 +1,186 @@
+<div class="container">
+  <div class="product">
+    <div class="row">
+      <div class="col-md-8">
+        <p-galleria
+          [showItemNavigators]="true"
+          [showThumbnailNavigators]="false"
+          [responsiveOptions]="responsiveOptions"
+          [value]="product.subImage"
+          [numVisible]="4"
+          thumbnailsPosition="left"
+          [containerStyle]="{ 'max-width': '100%' }"
+          [circular]="true"
+          [autoPlay]="true"
+          [transitionInterval]="2000"
+        >
+          <ng-template pTemplate="item" let-item>
+            <img
+              class="img-item"
+              [src]="
+                'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
+                item
+              "
+              style="width: 100%; display: block"
+            />
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+              <img
+                class="img-thumbnail"
+                [src]="
+                  'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
+                  item
+                "
+              />
+            </div>
+          </ng-template>
+        </p-galleria>
+      </div>
+      <div class="col-md-4">
+        <div class="product-info">
+          <h3 class="product-info__name">{{ product.name }}</h3>
+          <div class="product-info__cost">
+            <span class="product-info__cost-text">{{
+              product.priceOut | currency: "VND"
+            }}</span>
+            <div class="product-info__cost-rating">
+              <p-rating
+                [ngModel]="product.rating"
+                [readonly]="true"
+                [stars]="5"
+                [cancel]="false"
+              ></p-rating>
+              ({{ product.quantity }})
+            </div>
+          </div>
+          <div class="product-info__description">
+            <h3 class="product-info__title">Description:</h3>
+            <p class="product-info__description-text">
+              {{ product.description }}
+            </p>
+          </div>
+          <div class="product-info__color">
+            <h3 class="product-info__title">Color:</h3>
+            <div class="product-info__group">
+              <span class="product-info__item">{{ product.color }}</span>
+            </div>
+          </div>
+          <div class="product-info__size">
+            <h3 class="product-info__title">Size:</h3>
+            <div class="product-info__group">
+              <span class="product-info__item">{{ product.size }}</span>
+            </div>
+          </div>
+          <div class="product-info__category">
+            <div class="row">
+              <div class="col-4">
+                <h3 class="product-info__title">Category:</h3>
+              </div>
+              <div class="col-8">
+                <h3 class="product-info__category-detail">
+                  {{ product.categoryDto.name }}
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="product-add-btn">Add to cart</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review">
+    <div class="review-item" *ngFor="let review of reviewList">
+      <div class="row">
+        <div class="col-1">
+          <img
+            [src]="review.avatarPath"
+            alt="avatar"
+            class="reviewer__avatar"
+          />
+        </div>
+        <div class="col-11">
+          <div class="reviewer__human">
+            <h3 class="reviewer__name">{{ review.name }}</h3>
+            <span class="reviewer__time">{{
+              review.createdAt | date: "medium"
+            }}</span>
+          </div>
+          <span class="reviewer__mail">{{ review.email }}</span>
+          <p-rating
+            [readonly]="true"
+            [stars]="5"
+            [ngModel]="handleRatingReview(review.rating)"
+            [cancel]="false"
+          ></p-rating>
+          <p class="reviewer__comment">
+            {{ review.description }}
+          </p>
+          <div class="reviewer__reply">
+            <i class="pi pi-reply"></i>
+            <span>Reply</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="formReview" (ngSubmit)="onSubmit()" class="my-review">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="my-review__heading">Adding your review</h3>
+          <div class="my-review__rating">
+            <h3 class="my-review__rating-text">Your Rating</h3>
+            <p-rating
+              [ngModel]="4"
+              [stars]="5"
+              [cancel]="false"
+              formControlName="rating"
+            ></p-rating>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              type="text"
+              pInputText
+              placeholder="Your name"
+              autocomplete="off"
+              formControlName="name"
+            />
+          </span>
+        </div>
+        <div class="col-md-6">
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              type="text"
+              pInputText
+              placeholder="E-mail address"
+              autocomplete="off"
+              formControlName="email"
+            />
+          </span>
+        </div>
+        <div class="col-md-12">
+          <span class="p-float-label">
+            <textarea
+              inputId="textarea"
+              rows="3"
+              style="resize: none"
+              cols="30"
+              pInputTextarea
+              placeholder="Describe yourself here..."
+              autocomplete="off"
+              formControlName="description"
+            ></textarea>
+          </span>
+        </div>
+        <div class="col-md-12">
+          <button class="my-review__btn">Leave review</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

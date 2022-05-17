@@ -76,10 +76,12 @@
 }
 
 .cart-quantity {
-  padding: 16px 12px;
+  padding: 16px 0px;
   border: 1px solid #ececec;
   color: #ccccce;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cart-quantity__text {
@@ -387,4 +389,20 @@ svg #bg-line:nth-child(3) {
 
 .pop-up__disagree-btn:hover {
   background-color: #f4f4f4;
+}
+
+:host ::ng-deep {
+  .p-button-icon-only {
+    background: transparent;
+    border: none;
+    color: #9c9c9c;
+    width: 1rem;
+    &:hover {
+      background: transparent;
+      color: #212529;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }

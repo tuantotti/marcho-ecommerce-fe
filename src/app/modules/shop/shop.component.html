@@ -119,6 +119,7 @@
                       icon="pi pi-shopping-cart"
                       label="Add to Cart"
                       [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+                      (click)="handleAddProduct(product)"
                     ></p-button>
                     <span
                       [class]="
@@ -156,8 +157,16 @@
                         product.urlImage
                       "
                       [alt]="product.name"
+                      [routerLink]="['/product', product.id]"
+                      style="cursor: pointer"
                     />
-                    <div class="product-name">{{ product.name }}</div>
+                    <div
+                      class="product-name"
+                      [routerLink]="['/product', product.id]"
+                      style="cursor: pointer"
+                    >
+                      {{ product.name }}
+                    </div>
                     <div class="product-description">
                       {{ product.description }}
                     </div>
@@ -175,6 +184,7 @@
                       class="add-product-btn"
                       icon="pi pi-shopping-cart"
                       [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+                      (click)="handleAddProduct(product)"
                     ></p-button>
                   </div>
                 </div>

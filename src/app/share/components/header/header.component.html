@@ -19,11 +19,8 @@
       </div>
       <div class="col-md-2 flex align-center">
         <mat-icon routerLink="user"> person_outline </mat-icon>
-        <mat-icon matBadge="15" matBadgeColor="accent" matBadgeSize="small">
-          favorite_border
-        </mat-icon>
         <mat-icon
-          matBadge="15"
+          [matBadge]="cartProductsNumber"
           matBadgeColor="accent"
           matBadgeSize="small"
           routerLink="cart"

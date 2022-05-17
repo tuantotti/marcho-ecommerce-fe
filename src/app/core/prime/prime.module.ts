@@ -23,6 +23,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DataViewModule } from 'primeng/dataview';
 import { SliderModule } from 'primeng/slider';
+import { GalleriaModule } from 'primeng/galleria';
 const PrimeComponents = [
   AccordionModule,
   CheckboxModule,
@@ -49,6 +50,7 @@ const PrimeComponents = [
   DataViewModule,
   DropdownModule,
   SliderModule,
+  GalleriaModule,
 ];
 
 @NgModule({
