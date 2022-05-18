@@ -9,12 +9,12 @@ import { CartService } from 'app/modules/cart/service/cart.service';
 export class HeaderComponent implements OnInit {
   cartProductsNumber!: number;
   pages = ['HOME', 'SHOP', 'PAGE', 'CONTACT', 'BLOG'];
-  activePage = this.pages[0];
+  pathName = '';
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.cartService.getCartProducts();
-
+    this.pathName = window.location.pathname.split('/')[1];
     this.cartService.cartProducts$.subscribe((data) => {
       this.cartProductsNumber = data.length;
     });

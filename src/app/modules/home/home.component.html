@@ -242,76 +242,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-4 col-sm-6 mb-50">
-        <div class="product__block">
-          <div class="product__img">
-            <!-- [routerLink]="['/shop-details', product.id]" -->
-            <img src="../../../assets/img/bag-10.jpeg" alt="" />
-            <div class="product__hover">
-              <div class="product__hover-search">
-                <i class="fas fa-search"></i>
-              </div>
-              <div (click)="addProduct()" class="product__hover-bag">
-                <i class="fas fa-shopping-bag"></i>
-              </div>
-              <div class="product__hover-love">
-                <i class="far fa-heart"></i>
-              </div>
-            </div>
-            <div *ngIf="true; else noSale" class="product__sale">
-              <h4>SALE</h4>
-            </div>
-            <ng-template #noSale></ng-template>
-          </div>
-          <div *ngIf="true" class="product__rate">
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-          </div>
-          <div *ngIf="false" class="product__rate">
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <div *ngIf="false" class="product__rate">
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <div *ngIf="false" class="product__rate">
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <div *ngIf="false" class="product__rate">
-            <i class="fas fa-star fa-star--rating"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <!-- [routerLink]="['/shop-details', product.id]" -->
-          <h3 class="product__name">product.title</h3>
-          <div class="product__price">
-            <h3 class="product__new-price">
-              formatter.format(product.price.new) 120000 d
-            </h3>
-            <h3 class="product__old-price">
-              formatter.format(product.price.old) 300000 d
-            </h3>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Trending products  -->
     <div class="row">
       <div class="col-12">
         <div class="trending-product__load-more">

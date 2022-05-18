@@ -454,6 +454,78 @@
         </div>
       </ng-template>
     </p-table>
+    <div class="row">
+      <div class="col-12">
+        <div class="cart-action-group">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="cart-action">
+                <div class="cart-clear" (click)="handleClearShoppingCart()">
+                  <span>CLEAR SHOPPING CART</span>
+                </div>
+                <div class="cart-update">
+                  <span>UPDATE SHOPPING CART</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div routerLink="/shop" class="continue-shopping">
+                <span>CONTINUE SHOPPING</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cart-payment">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="coupon-code">
+                <h3 class="coupon-code__text">Coupon Code</h3>
+                <div>
+                  <input
+                    type="text"
+                    class="coupon-code__input"
+                    placeholder="Enter coupon code"
+                  />
+                </div>
+                <span style="font-size: 12px">
+                  FREE50: Discount 50%
+                  <br />
+                  TET2022: Discount 30%
+                </span>
+                <button class="coupon-code__btn">APPLY</button>
+                <div style="clear: right"></div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="payment">
+                <h3 class="payment__text">Cart Total</h3>
+                <div class="payment__details">
+                  <span class="payment__details-text">Subtotal</span>
+                  <div class="payment__details-price">0</div>
+                </div>
+                <div class="payment__details">
+                  <span class="payment__details-text">Shipping cost</span>
+                  <div class="payment__details-price">
+                    {{ formatter.format(0) }}
+                  </div>
+                </div>
+                <div class="payment__details">
+                  <span class="payment__details-text">Voucher</span>
+                  <div class="payment__details-price">120</div>
+                </div>
+                <div class="payment__details">
+                  <span class="payment__details-text">Total</span>
+                  <div class="payment__details-price">500</div>
+                </div>
+                <button class="payment__details-btn" routerLink="/checkout">
+                  PROCEED TO CHECKOUT
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- </ng-template> -->
   </div>
 </div>

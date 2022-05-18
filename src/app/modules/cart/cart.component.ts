@@ -34,10 +34,17 @@ export class CartComponent implements OnInit {
       });
     }
   }
+  handleClearShoppingCart() {
+    // this.cartProductList.map((product) => {
+    //   this.cartService.removeProduct(product);
+    // });
+    this.cartService.clearShoppingCart(this.cartProductList);
+  }
 
   ngOnInit(): void {
     this.cartService.cartProducts$.subscribe((data) => {
-      this.cartProductList = data;
+      localStorage.setItem('cartProducts', JSON.stringify(data));
+      this.cartProductList = JSON.parse(localStorage.getItem('cartProducts')!);
     });
   }
 }

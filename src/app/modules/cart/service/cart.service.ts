@@ -50,6 +50,12 @@ export class CartService {
       (err) => this.toast.error('Delete product error!')
     );
   }
+  clearShoppingCart(products: IProduct[]) {
+    products.map((product) => {
+      this.cartApiService.removeProduct(product).subscribe();
+    });
+    this.getCartProducts();
+  }
   updateProductInCart(product: IProduct) {
     this.cartApiService.updateProduct(product).subscribe((data) => {
       this.getCartProducts();
