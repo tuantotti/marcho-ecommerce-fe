@@ -24,6 +24,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DataViewModule } from 'primeng/dataview';
 import { SliderModule } from 'primeng/slider';
 import { GalleriaModule } from 'primeng/galleria';
+import { CarouselModule } from 'primeng/carousel';
 const PrimeComponents = [
   AccordionModule,
   CheckboxModule,
@@ -51,6 +52,7 @@ const PrimeComponents = [
   DropdownModule,
   SliderModule,
   GalleriaModule,
+  CarouselModule,
 ];
 
 @NgModule({

@@ -19,9 +19,9 @@
   .product-name {
     font-size: 20px;
     font-weight: 500;
+    margin-bottom: 10px;
     line-height: 1.25em;
     min-height: 2.5em;
-    margin-bottom: 10px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -95,6 +95,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    .product-grid-item-bottom {
+      justify-content: center;
+      margin-top: 14px;
     }
 
     img {

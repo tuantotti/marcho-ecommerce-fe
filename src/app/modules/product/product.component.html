@@ -38,7 +38,7 @@
         </p-galleria>
       </div>
       <div class="col-md-4">
-        <div class="product-info">
+        <form class="product-info">
           <h3 class="product-info__name">{{ product.name }}</h3>
           <div class="product-info__cost">
             <span class="product-info__cost-text">{{
@@ -63,13 +63,31 @@
           <div class="product-info__color">
             <h3 class="product-info__title">Color:</h3>
             <div class="product-info__group">
-              <span class="product-info__item">{{ product.color }}</span>
+              <div
+                *ngFor="let color of product.color"
+                class="field-color-checkbox"
+              >
+                <mat-radio-group name="colors">
+                  <mat-radio-button [value]="color" checked="true">
+                    {{ color }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
             </div>
           </div>
           <div class="product-info__size">
             <h3 class="product-info__title">Size:</h3>
             <div class="product-info__group">
-              <span class="product-info__item">{{ product.size }}</span>
+              <div
+                *ngFor="let size of product.size"
+                class="field-size-checkbox"
+              >
+                <mat-radio-group name="sizes">
+                  <mat-radio-button [value]="size" checked="true">
+                    {{ size }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
             </div>
           </div>
           <div class="product-info__category">
@@ -84,8 +102,8 @@
               </div>
             </div>
           </div>
-          <div class="product-add-btn">Add to cart</div>
-        </div>
+          <button class="product-add-btn">Add to cart</button>
+        </form>
       </div>
     </div>
   </div>

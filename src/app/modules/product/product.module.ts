@@ -13,6 +13,7 @@ import { ProductComponent } from './product.component';
     CommonModule,
     ProductRoutingModule,
     PrimeModule,
+    MaterialModule,
     ReactiveFormsModule,
     MaterialModule,
   ],

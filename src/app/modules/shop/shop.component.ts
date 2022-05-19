@@ -19,7 +19,6 @@ export class ShopComponent implements OnInit {
     private toast: ToastrService
   ) {}
   products!: IProduct[];
-  cartProducts!: IProduct[];
   sortOptions!: SelectItem[];
 
   sortOrder!: number;
@@ -73,18 +72,6 @@ export class ShopComponent implements OnInit {
   handleFilterByName(event: Event) {
     this.dataView.filter((event.target! as HTMLInputElement).value);
   }
-  handleAddProduct(product: IProduct) {
-    let count = 0;
-    this.cartProducts.map((p) => {
-      if (p.name === product.name) {
-        count++;
-        this.toast.error(`Product: ${product.name} is already added!`);
-      }
-    });
-    if (count === 0) {
-      this.cartService.addProductToCart({ ...product, quantity: 1 });
-    }
-  }
   ngOnInit(): void {
     this.sortOptions = [
       { label: 'Price High to Low', value: '!priceOut' },
@@ -93,8 +80,5 @@ export class ShopComponent implements OnInit {
     this.shopService.getProducts();
 
     this.shopService.products$.subscribe((data) => (this.products = data));
-    this.cartService.cartProducts$.subscribe(
-      (data) => (this.cartProducts = data)
-    );
   }
 }

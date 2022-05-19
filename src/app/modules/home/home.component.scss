@@ -571,3 +571,63 @@
   margin-top: 2px;
   color: #fe3e57;
 }
+
+.product-item {
+  &-content {
+    border: 1px solid var(--surface-d);
+    border-radius: 3px;
+    margin: 0.3rem;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  &-name {
+    line-height: 1.25em;
+    min-height: 2.5em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .product-image {
+    width: 80%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+.product-badge {
+  border-radius: 2px;
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  &.status-instock {
+    background: #c8e6c9;
+    color: #256029;
+  }
+  &.status-lowstock {
+    background: #feedaf;
+    color: #8a5340;
+  }
+  &.status-outofstock {
+    background: #ffcdd2;
+    color: #c63737;
+  }
+}
+
+:host ::ng-deep {
+  .p-carousel .p-carousel-content .p-carousel-prev,
+  .p-carousel .p-carousel-content .p-carousel-next {
+    box-shadow: none;
+  }
+  .p-button-icon-only {
+    background: #ff4081;
+    border: none;
+    &:hover {
+      background: #ff4081;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

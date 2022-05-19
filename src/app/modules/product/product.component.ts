@@ -17,6 +17,14 @@ export class ProductComponent implements OnInit {
   id!: number;
   product!: IProduct;
   reviewList!: IProductReview[];
+  productForm: FormGroup = new FormGroup({
+    id: new FormControl(),
+    urlImage: new FormControl([]),
+    name: new FormControl(),
+    priceOut: new FormControl(),
+    quantity: new FormControl(),
+    color: new FormControl(),
+  });
   formReview: FormGroup = new FormGroup({
     rating: new FormControl(4),
     name: new FormControl('', [Validators.required]),
@@ -36,6 +44,13 @@ export class ProductComponent implements OnInit {
       breakpoint: '560px',
       numVisible: 1,
     },
+  ];
+  selectedSize: any = null;
+  sizes: any[] = [
+    { name: 'M', key: 'M' },
+    { name: 'L', key: 'L' },
+    { name: 'XL', key: 'XL' },
+    { name: 'XXL', key: 'XXL' },
   ];
   handleRatingReview(rating: number) {
     return Number(rating.toString()[0]) % 5;
@@ -58,5 +73,7 @@ export class ProductComponent implements OnInit {
     this.productService.productReview$.subscribe((data) => {
       this.reviewList = data;
     });
+
+    this.selectedSize = this.sizes[1];
   }
 }

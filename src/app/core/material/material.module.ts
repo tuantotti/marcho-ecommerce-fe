@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import {MatRadioModule} from '@angular/material/radio';
 const MaterialComponents = [
   MatCardModule,
   MatFormFieldModule,
@@ -35,6 +35,7 @@ const MaterialComponents = [
   MatSidenavModule,
   MatTabsModule,
   MatBadgeModule,
+  MatRadioModule
 ];
 
 @NgModule({

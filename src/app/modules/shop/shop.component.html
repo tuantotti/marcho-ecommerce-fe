@@ -114,13 +114,6 @@
                     <span class="product-price">{{
                       product.priceOut | currency: "VND"
                     }}</span>
-                    <p-button
-                      class="add-product-btn"
-                      icon="pi pi-shopping-cart"
-                      label="Add to Cart"
-                      [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
-                      (click)="handleAddProduct(product)"
-                    ></p-button>
                     <span
                       [class]="
                         'product-badge status-' +
@@ -180,12 +173,6 @@
                     <span class="product-price">{{
                       product.priceOut | currency: "VND"
                     }}</span>
-                    <p-button
-                      class="add-product-btn"
-                      icon="pi pi-shopping-cart"
-                      [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
-                      (click)="handleAddProduct(product)"
-                    ></p-button>
                   </div>
                 </div>
               </div>

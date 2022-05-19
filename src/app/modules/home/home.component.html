@@ -245,39 +245,49 @@
     <!-- Trending products  -->
     <div class="row">
       <div class="col-12">
-        <div class="trending-product__load-more">
-          <button (click)="loadMore()" class="trending-product__load-more-btn">
-            LOAD MORE
-          </button>
-        </div>
-      </div>
-    </div>
-    <div id="toast">
-      <!-- Success -->
-      <div class="toast toast--success">
-        <div class="toast__icon">
-          <i class="far fa-check-circle"></i>
-        </div>
-        <div class="toast__body">
-          <h3 class="toast__title">Success</h3>
-          <p class="toast__msg">Add product success!</p>
-        </div>
-        <div class="toast__close">
-          <i class="fas fa-times"></i>
-        </div>
-      </div>
-      <!-- Error -->
-      <div class="toast toast--error">
-        <div class="toast__icon">
-          <i class="far fa-check-circle"></i>
-        </div>
-        <div class="toast__body">
-          <h3 class="toast__title">Error</h3>
-          <p class="toast__msg">Product is already added!</p>
-        </div>
-        <div class="toast__close">
-          <i class="fas fa-times"></i>
-        </div>
+        <p-carousel
+          [value]="products"
+          styleClass="custom-carousel"
+          [numVisible]="3"
+          [numScroll]="1"
+          [circular]="true"
+          [autoplayInterval]="3000"
+          [responsiveOptions]="responsiveOptions"
+          [showIndicators]="false"
+        >
+          <ng-template let-product pTemplate="item">
+            <div class="product-item">
+              <div class="product-item-content">
+                <div class="mb-3" [routerLink]="['/product', product.id]">
+                  <img
+                    [src]="
+                      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
+                      product.urlImage
+                    "
+                    [alt]="product.name"
+                    width="100"
+                    class="product-image"
+                  />
+                </div>
+                <div>
+                  <h4 class="mb-1 px-2 product-item-name">
+                    {{ product.name }}
+                  </h4>
+                  <h4 class="mt-0 mb-3">
+                    {{ product.priceOut | currency: "VND" }}
+                  </h4>
+                  <span
+                    [class]="
+                      'product-badge status-' +
+                      product.inventoryStatus.toLowerCase()
+                    "
+                    >{{ product.inventoryStatus }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
       </div>
     </div>
   </div>
