@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IProductReview } from 'app/modules/product/type/product.type';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { IProduct } from '../type/shop.type';
+import { IGetProducts, IProduct } from '../type/shop.type';
 import { ShopApiService } from './shop-api.service';
 
 @Injectable({
@@ -15,16 +14,21 @@ export class ShopService {
   ) {}
   private productsBS = new BehaviorSubject<IProduct[]>([]);
   private cartProductsBS = new BehaviorSubject<IProduct[]>([]);
+  private totalProductsBS = new BehaviorSubject<number>(0);
   get products$() {
     return this.productsBS.asObservable();
+  }
+  get totalProducts$() {
+    return this.totalProductsBS.asObservable();
   }
   get cartProducts$() {
     return this.cartProductsBS.asObservable();
   }
-  getProducts() {
-    this.shopApiService.getProducts().subscribe(
+  getProducts({ page, size }: IGetProducts) {
+    this.shopApiService.getProducts({ page, size }).subscribe(
       (data) => {
-        this.productsBS.next(data);
+        this.productsBS.next(data.content);
+        this.totalProductsBS.next(data.totalElements);
       },
       (err) => {
         this.toast.error('Fetching data error!');

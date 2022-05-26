@@ -1,0 +1,41 @@
+.content {
+  margin: 120px 0;
+}
+
+.error-page__heading,
+.error-page__responsive-heading {
+  color: #28384f;
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.error-page__description,
+.error-page__responsive-description {
+  color: #8d8d8d;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 40px 0 60px;
+}
+
+.error-page__button,
+.error-page__responsive-button {
+  color: white;
+  font-size: 16px;
+  background-color: #fe3e57;
+  padding: 20px 50px;
+  box-shadow: 0px 3px 10px rgb(254 62 87 / 60%);
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.error-page__infor {
+  padding-top: 120px;
+}
+
+.error-page__responsive-infor {
+  display: none;
+  text-align: center;
+  margin-top: 60px;
+}

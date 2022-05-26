@@ -6,7 +6,7 @@
           [showItemNavigators]="true"
           [showThumbnailNavigators]="false"
           [responsiveOptions]="responsiveOptions"
-          [value]="product.subImage"
+          [value]="product.subImage!"
           [numVisible]="4"
           thumbnailsPosition="left"
           [containerStyle]="{ 'max-width': '100%' }"
@@ -38,20 +38,24 @@
         </p-galleria>
       </div>
       <div class="col-md-4">
-        <form class="product-info">
+        <form
+          [formGroup]="productForm"
+          (ngOnsubmit)="(handleAddProduct)"
+          class="product-info"
+        >
           <h3 class="product-info__name">{{ product.name }}</h3>
           <div class="product-info__cost">
             <span class="product-info__cost-text">{{
               product.priceOut | currency: "VND"
             }}</span>
             <div class="product-info__cost-rating">
+              <!-- formControlName="rating" -->
               <p-rating
-                [ngModel]="product.rating"
                 [readonly]="true"
                 [stars]="5"
                 [cancel]="false"
               ></p-rating>
-              ({{ product.quantity }})
+              ({{ 24 }})
             </div>
           </div>
           <div class="product-info__description">
@@ -61,14 +65,14 @@
             </p>
           </div>
           <div class="product-info__color">
-            <h3 class="product-info__title">Color:</h3>
+            <h3 class="product-info__title">Color</h3>
             <div class="product-info__group">
               <div
                 *ngFor="let color of product.color"
                 class="field-color-checkbox"
               >
-                <mat-radio-group name="colors">
-                  <mat-radio-button [value]="color" checked="true">
+                <mat-radio-group formControlName="color" name="colors">
+                  <mat-radio-button [value]="color">
                     {{ color }}
                   </mat-radio-button>
                 </mat-radio-group>
@@ -76,19 +80,33 @@
             </div>
           </div>
           <div class="product-info__size">
-            <h3 class="product-info__title">Size:</h3>
+            <h3 class="product-info__title">Size</h3>
+
             <div class="product-info__group">
               <div
                 *ngFor="let size of product.size"
                 class="field-size-checkbox"
               >
-                <mat-radio-group name="sizes">
-                  <mat-radio-button [value]="size" checked="true">
+                <mat-radio-group formControlName="size" name="sizes">
+                  <mat-radio-button [value]="size">
                     {{ size }}
                   </mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
+
+            <!-- <div class="product-info__group">
+              <div
+                *ngFor="let size of product.size"
+                class="field-color-checkbox"
+              >
+                <mat-radio-group formControlName="size" name="sizes">
+                  <mat-radio-button [value]="size" checked="true">
+                    {{ size }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div> -->
           </div>
           <div class="product-info__category">
             <div class="row">
@@ -97,12 +115,14 @@
               </div>
               <div class="col-8">
                 <h3 class="product-info__category-detail">
-                  {{ product.categoryDto.name }}
+                  {{ product.categoryDto?.name }}
                 </h3>
               </div>
             </div>
           </div>
-          <button class="product-add-btn">Add to cart</button>
+          <button (click)="handleAddProduct()" class="product-add-btn">
+            Add to cart
+          </button>
         </form>
       </div>
     </div>
@@ -196,7 +216,7 @@
           </span>
         </div>
         <div class="col-md-12">
-          <button class="my-review__btn">Leave review</button>
+          <button type="submit" class="my-review__btn">Leave review</button>
         </div>
       </div>
     </form>

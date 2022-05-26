@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IProductReview } from 'app/modules/product/type/product.type';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../type/cart.type';
@@ -13,13 +12,16 @@ export class CartService {
     private cartApiService: CartApiService,
     private toast: ToastrService
   ) {}
-  private productsBS = new BehaviorSubject<IProduct[]>([]);
   private cartProductsBS = new BehaviorSubject<IProduct[]>([]);
-  get products$() {
-    return this.productsBS.asObservable();
-  }
+  private discount = new BehaviorSubject<number>(0);
   get cartProducts$() {
     return this.cartProductsBS.asObservable();
+  }
+  get voucher$() {
+    return this.discount.asObservable();
+  }
+  set voucherBS(value: number) {
+    this.discount.next(value);
   }
   getCartProducts() {
     this.cartApiService.getCartProducts().subscribe(
@@ -57,8 +59,6 @@ export class CartService {
     this.getCartProducts();
   }
   updateProductInCart(product: IProduct) {
-    this.cartApiService.updateProduct(product).subscribe((data) => {
-      this.getCartProducts();
-    });
+    this.cartApiService.updateProduct(product).subscribe();
   }
 }

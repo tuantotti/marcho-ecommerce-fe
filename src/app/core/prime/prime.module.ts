@@ -25,6 +25,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { SliderModule } from 'primeng/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { CarouselModule } from 'primeng/carousel';
+import { PaginatorModule } from 'primeng/paginator';
 const PrimeComponents = [
   AccordionModule,
   CheckboxModule,
@@ -53,6 +54,7 @@ const PrimeComponents = [
   SliderModule,
   GalleriaModule,
   CarouselModule,
+  PaginatorModule,
 ];
 
 @NgModule({

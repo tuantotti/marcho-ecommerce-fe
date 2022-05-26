@@ -395,7 +395,6 @@
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
           Products
-          <p-button icon="pi pi-refresh"></p-button>
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -410,7 +409,19 @@
       </ng-template>
       <ng-template pTemplate="body" let-product>
         <tr>
-          <td>{{ product.name }}</td>
+          <td>
+            <h3 style="font-weight: 500">{{ product.name }}</h3>
+            <div
+              style="
+                display: flex;
+                column-gap: 10px;
+                color: rgba(0, 0, 0, 0.54);
+              "
+            >
+              <span>Color: {{ product.color }}</span>
+              <span>Color: {{ product.size }}</span>
+            </div>
+          </td>
           <td>
             <img
               [src]="
@@ -485,6 +496,7 @@
                     type="text"
                     class="coupon-code__input"
                     placeholder="Enter coupon code"
+                    [(ngModel)]="voucher"
                   />
                 </div>
                 <span style="font-size: 12px">
@@ -492,7 +504,12 @@
                   <br />
                   TET2022: Discount 30%
                 </span>
-                <button class="coupon-code__btn">APPLY</button>
+                <span *ngIf="discount" class="coupon-code__apply"
+                  >Coupon: "{{ "FREE50" }}" is applied!</span
+                >
+                <button class="coupon-code__btn" (click)="handleApplyVoucher()">
+                  APPLY
+                </button>
                 <div style="clear: right"></div>
               </div>
             </div>
@@ -501,21 +518,28 @@
                 <h3 class="payment__text">Cart Total</h3>
                 <div class="payment__details">
                   <span class="payment__details-text">Subtotal</span>
-                  <div class="payment__details-price">0</div>
+                  <div class="payment__details-price">
+                    {{ subTotal | currency: "VND" }}
+                  </div>
                 </div>
                 <div class="payment__details">
                   <span class="payment__details-text">Shipping cost</span>
                   <div class="payment__details-price">
-                    {{ formatter.format(0) }}
+                    {{ 0 | currency: "VND" }}
                   </div>
                 </div>
                 <div class="payment__details">
                   <span class="payment__details-text">Voucher</span>
-                  <div class="payment__details-price">120</div>
+                  <div class="payment__details-price">
+                    <span *ngIf="discount">-</span>
+                    {{ discount * subTotal | currency: "VND" }}
+                  </div>
                 </div>
                 <div class="payment__details">
                   <span class="payment__details-text">Total</span>
-                  <div class="payment__details-price">500</div>
+                  <div class="payment__details-price">
+                    {{ subTotal - discount * subTotal | currency: "VND" }}
+                  </div>
                 </div>
                 <button class="payment__details-btn" routerLink="/checkout">
                   PROCEED TO CHECKOUT

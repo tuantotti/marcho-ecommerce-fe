@@ -1,33 +1,18 @@
-export interface ILoginResponseWrapper<T> {
-  result: T;
-  error?: unknown;
-  success?: boolean;
-  targetUrl?: unknown;
-}
 export interface ILoginRequest {
-  userNameOrEmailAddress: string;
+  username: string;
   password: string;
-  rememberMe: boolean;
 }
 
 export interface ILoginResponse {
-  accessToken: string;
-  encryptedAccessToken: string;
-  expireInSeconds: number;
+  roles: string[];
   userId: number;
+  'x-access-token': string;
+  'x-refresh-token': string;
 }
 
-export interface IUserInforResponseWrapper<T> {
-  result: { application: {}; tenant: null; user: T };
-  error?: unknown;
-  success?: boolean;
-  targetUrl?: unknown;
-}
-export interface IUserInforResponse {
-  name: string;
-  surname: string;
-  userName: string;
-  emailAddress: string;
-  avatarPath: string;
-  id: number;
+export interface IRegisterRequest {
+  username: string;
+  password: string;
+  email: string;
+  phone: string;
 }

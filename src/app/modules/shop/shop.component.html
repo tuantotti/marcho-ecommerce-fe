@@ -22,40 +22,49 @@
           </div>
           <div class="side-bar__filter">
             <h3 class="side-bar__filter-title">COLOR FILTER</h3>
-            <ul class="side-bar__filter-color">
-              <li
-                class="side-bar__filter-color-item"
-                *ngFor="let item of colorFilterList"
-              >
-                <span class="side-bar__filter-color-title"
-                  >{{ item.title }} ()</span
+            <mat-radio-group name="color-filter">
+              <ul class="side-bar__filter-color">
+                <mat-radio-button
+                  *ngFor="let item of colorFilterList"
+                  [value]="item.title.toLowerCase()"
                 >
-                <span
-                  class="side-bar__filter-color-background"
-                  [style.backgroundColor]="item.color"
-                ></span>
-              </li>
-            </ul>
+                  <li class="side-bar__filter-color-item">
+                    <span class="side-bar__filter-color-title">
+                      {{ item.title }}
+                    </span>
+                    <span
+                      class="side-bar__filter-color-background"
+                      [style.backgroundColor]="item.color"
+                    >
+                    </span>
+                  </li>
+                </mat-radio-button>
+              </ul>
+            </mat-radio-group>
           </div>
           <div class="side-bar__filter">
             <h3 class="side-bar__filter-title">CATEGORY FILTER</h3>
-            <ul class="side-bar__filter-category">
-              <li
-                class="side-bar__filter-category-item"
-                *ngFor="let item of categoryFilterList"
-              >
-                <span>{{ item }}</span>
-              </li>
-            </ul>
+            <mat-radio-group name="category-filter">
+              <ul class="side-bar__filter-category">
+                <mat-radio-button
+                  *ngFor="let item of categoryFilterList"
+                  [value]="item.toLowerCase()"
+                >
+                  <li class="side-bar__filter-category-item">
+                    <span>{{ item }}</span>
+                  </li>
+                </mat-radio-button>
+              </ul>
+            </mat-radio-group>
           </div>
         </div>
       </div>
       <div class="col-9">
         <div class="shop-content">
+          <!-- [paginator]="true" -->
           <p-dataView
             #dataView
             [value]="products"
-            [paginator]="true"
             [rows]="6"
             filterBy="name"
             [sortField]="sortField"
@@ -89,10 +98,7 @@
               <div class="col-12">
                 <div class="product-list-item">
                   <img
-                    [src]="
-                      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
-                      product.urlImage
-                    "
+                    [src]="product.thumbnail[0].urlImages[0]"
                     [alt]="product.name"
                   />
                   <div class="product-list-detail">
@@ -101,26 +107,25 @@
                       {{ product.description }}
                     </div>
                     <p-rating
-                      [ngModel]="product.rating"
+                      [ngModel]="product.thumbnail[0].star"
                       [readonly]="true"
                       [cancel]="false"
                     ></p-rating>
-                    <i class="pi pi-tag product-category-icon"></i
-                    ><span class="product-category">{{
-                      product.categoryDto!.name
-                    }}</span>
+                    <i class="pi pi-tag product-category-icon"></i>
+                    <span
+                      class="product-category"
+                      style="text-transform: capitalize"
+                    >
+                      {{ product.category.name }}
+                    </span>
                   </div>
                   <div class="product-list-action">
                     <span class="product-price">{{
-                      product.priceOut | currency: "VND"
+                      product.price | currency: "VND"
                     }}</span>
-                    <span
-                      [class]="
-                        'product-badge status-' +
-                        product.inventoryStatus.toLowerCase()
-                      "
-                      >{{ product.inventoryStatus }}</span
-                    >
+                    <span [class]="'product-badge status-' + 'instock'">
+                      {{ "INSTOCK" }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -131,24 +136,20 @@
                   <div class="product-grid-item-top">
                     <div>
                       <i class="pi pi-tag product-category-icon"></i>
-                      <span class="product-category">{{
-                        product.categoryDto!.name
-                      }}</span>
+                      <span
+                        class="product-category"
+                        style="text-transform: capitalize"
+                      >
+                        {{ product.category.name }}
+                      </span>
                     </div>
-                    <span
-                      [class]="
-                        'product-badge status-' +
-                        product.inventoryStatus.toLowerCase()
-                      "
-                      >{{ product.inventoryStatus }}</span
-                    >
+                    <span [class]="'product-badge status-' + 'instock'">{{
+                      "INSTOCK"
+                    }}</span>
                   </div>
                   <div class="product-grid-item-content">
                     <img
-                      [src]="
-                        'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
-                        product.urlImage
-                      "
+                      [src]="product.thumbnail[0].urlImages[0]"
                       [alt]="product.name"
                       [routerLink]="['/product', product.id]"
                       style="cursor: pointer"
@@ -164,20 +165,25 @@
                       {{ product.description }}
                     </div>
                     <p-rating
-                      [ngModel]="product.rating"
+                      [ngModel]="product.thumbnail[0].star"
                       [readonly]="true"
                       [cancel]="false"
                     ></p-rating>
                   </div>
                   <div class="product-grid-item-bottom">
                     <span class="product-price">{{
-                      product.priceOut | currency: "VND"
+                      product.price | currency: "VND"
                     }}</span>
                   </div>
                 </div>
               </div>
             </ng-template>
           </p-dataView>
+          <p-paginator
+            [rows]="6"
+            [totalRecords]="totalProducts"
+            (onPageChange)="paginate($event)"
+          ></p-paginator>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { IProduct, IProductReview } from '../type/product.type';
+import { IProductReview } from '../type/product.type';
+import { IProduct } from '../../cart/type/cart.type';
 import { ProductApiService } from './product-api.service';
 import { ToastrService } from 'ngx-toastr';
 

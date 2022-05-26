@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { IGetProducts, IProduct } from 'app/modules/shop/type/shop.type';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { IProduct } from '../../type/product-management.type';
 import { ProductManagementApiService } from './product-management-api.service';
 
 @Injectable({
@@ -13,13 +13,18 @@ export class ProductManagementService {
     private toast: ToastrService
   ) {}
   private productsBS = new BehaviorSubject<IProduct[]>([]);
+  private totalProductsBS = new BehaviorSubject<number>(0);
   get products$() {
     return this.productsBS.asObservable();
   }
-  getProducts() {
-    this.productManagementApiService.getProducts().subscribe(
+  get totalProducts$() {
+    return this.totalProductsBS.asObservable();
+  }
+  getProducts({ page, size }: IGetProducts) {
+    this.productManagementApiService.getProducts({ page, size }).subscribe(
       (data) => {
-        this.productsBS.next(data);
+        this.productsBS.next(data.content);
+        this.totalProductsBS.next(data.totalElements);
       },
       (err) => {
         this.toast.error('Fetching data error!');
@@ -30,7 +35,7 @@ export class ProductManagementService {
     this.productManagementApiService.saveProduct(product).subscribe(
       (data) => {
         this.toast.success('Product created successfully!');
-        this.getProducts();
+        this.getProducts({ page: 1, size: 6 });
       },
       (err) => {
         this.toast.error('Product created error!');
@@ -41,18 +46,18 @@ export class ProductManagementService {
     this.productManagementApiService.editProduct(product).subscribe(
       (data) => {
         this.toast.success('Product editted successfully!');
-        this.getProducts();
+        this.getProducts({ page: 1, size: 6 });
       },
       (err) => {
         this.toast.success('Product editted error!');
       }
     );
   }
-  deleteProduct(id: number) {
+  deleteProduct(id: string) {
     this.productManagementApiService.deleteProduct(id).subscribe(
       (data) => {
         this.toast.success('Product deleted successfully!');
-        this.getProducts();
+        this.getProducts({ page: 1, size: 6 });
       },
       (err) => {
         this.toast.success('Product deleted error!');
@@ -63,38 +68,12 @@ export class ProductManagementService {
     selectedProducts.map((product) => {
       this.productManagementApiService.deleteProduct(product.id!).subscribe(
         (data) => {
-          this.getProducts();
+          this.getProducts({ page: 1, size: 6 });
         },
         (err) => {
           console.log(err);
         }
       );
     });
-  }
-
-  generateProduct(product: IProduct): IProduct {
-    const productGeneration: IProduct = {
-      ...product,
-      code: this.generateCode(9),
-    };
-
-    // productGeneration.urlImage =
-    //   productGeneration.name!.toLocaleLowerCase().split(/[ ,]+/).join('-') +
-    //   '.jpg';
-    productGeneration.urlImage = 'product-placeholder.svg';
-
-    return productGeneration;
-  }
-  generateCode(length: number) {
-    const characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    let result = ' ';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
   }
 }

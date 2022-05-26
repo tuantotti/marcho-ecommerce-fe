@@ -1,19 +1,19 @@
 <form class="login-form" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
   <mat-form-field class="login-form__field" appearance="fill">
-    <mat-label>Username or Email address</mat-label>
+    <mat-label>Username</mat-label>
     <input
-      type="email"
+      type="text"
       matInput
       required
-      formControlName="userNameOrEmailAddress"
+      formControlName="username"
       autocomplete="off"
     />
     <mat-error
-      *ngIf="formLogin.get('userNameOrEmailAddress')?.invalid
-    || formLogin.get('userNameOrEmailAddress')?.errors?.['required']
-    || formLogin.get('userNameOrEmailAddress')?.touched"
+      *ngIf="formLogin.get('username')?.invalid
+    || formLogin.get('username')?.errors?.['required']
+    || formLogin.get('username')?.touched"
     >
-      Username or Email address is <strong>required</strong>
+      Username is <strong>required</strong>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="login-form__field" appearance="fill">
@@ -35,7 +35,7 @@
       Password is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-  <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
+  <mat-checkbox>Remember me</mat-checkbox>
   <div class="login-form__button">
     <button mat-raised-button type="submit">Log in</button>
   </div>

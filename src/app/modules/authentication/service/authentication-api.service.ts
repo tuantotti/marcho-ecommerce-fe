@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 import {
   ILoginRequest,
   ILoginResponse,
-  ILoginResponseWrapper,
-  IUserInforResponse,
-  IUserInforResponseWrapper,
+  IRegisterRequest,
 } from '../type/authentication.type';
 
 @Injectable({
@@ -18,24 +16,24 @@ export class AuthenticationApiService {
 
   constructor(private http: HttpClient) {}
 
-  logIn({
-    userNameOrEmailAddress,
-    password,
-    rememberMe,
-  }: ILoginRequest): Observable<ILoginResponseWrapper<ILoginResponse>> {
-    return this.http.post<ILoginResponseWrapper<ILoginResponse>>(
-      `${this.API_URL}/api/TokenAuth/Authenticate`,
-      {
-        userNameOrEmailAddress,
-        password,
-        rememberMe,
-      }
-    );
+  logIn({ username, password }: ILoginRequest): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>(`${this.API_URL}/api/login`, {
+      username,
+      password,
+    });
   }
 
-  getUserInfor(): Observable<any> {
-    return this.http.get<IUserInforResponseWrapper<IUserInforResponse>>(
-      `${this.API_URL}/api/services/app/Session/GetCurrentLoginInformations`
-    );
+  register({
+    username,
+    password,
+    email,
+    phone,
+  }: IRegisterRequest): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/signup`, {
+      username,
+      password,
+      email,
+      phone,
+    });
   }
 }

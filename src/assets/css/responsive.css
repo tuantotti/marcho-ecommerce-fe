@@ -1,0 +1,450 @@
+@media (min-width: 1200px) {
+}
+
+@media (max-width: 1199px) {
+  .deal__time-block {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .blog__author > h3,
+  .blog__author > i,
+  .blog__time > h3,
+  .blog__time > i {
+    font-size: 12px !important;
+  }
+
+  .footer__input > input {
+    width: 230px !important;
+  }
+
+  .banner-text {
+    margin-top: 100px !important;
+  }
+
+  .shop-details__add-amount {
+    padding: 12px 10px !important;
+  }
+
+  .shop-details__add-btn {
+    padding: 14px 36px !important;
+  }
+
+  .shop-details__title {
+    margin-top: 40px !important;
+  }
+
+  .cart-clear,
+  .cart-update {
+    padding: 20px !important;
+  }
+
+  .cart-clear > span,
+  .cart-update > span {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .tx-alg-c {
+    text-align: center !important;
+  }
+
+  .tx-alg-l {
+    text-align: left !important;
+  }
+
+  .mtb-60-mobile {
+    margin: 60px 0 !important;
+  }
+
+  .mb-30-mobile {
+    margin-bottom: 30px !important;
+  }
+
+  .pt-20-mobile {
+    padding-top: 20px !important;
+  }
+
+  .pt-30-mobile {
+    padding-top: 30px !important;
+  }
+
+  .header__navbar,
+  .header__icon-item:nth-child(1),
+  .header__icon-item:nth-child(2) {
+    display: none !important;
+  }
+
+  .header__menu-bar {
+    display: block !important;
+  }
+
+  .banner {
+    height: 100% !important;
+    text-align: center !important;
+  }
+
+  .banner-text {
+    margin-top: 20px !important;
+    text-align: center !important;
+  }
+
+  .banner-img__test {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .banner-text__description {
+    width: 100% !important;
+    margin: 30px 2px 50px !important;
+  }
+
+  .trending-fashion {
+    height: 820px !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+
+  .trending-fashion__heading {
+    font-size: 28px !important;
+  }
+
+  .trending-fashion__description {
+    font-size: 14px !important;
+  }
+
+  .trending-fashion__video-block {
+    width: 100% !important;
+  }
+
+  .trending-fashion__description {
+    margin-bottom: 20px !important;
+  }
+
+  .deal {
+    height: 400px !important;
+  }
+
+  .deal__block {
+    margin-top: 20px !important;
+  }
+
+  .deal__title {
+    font-size: 16px !important;
+  }
+
+  .deal__heading {
+    font-size: 28px !important;
+  }
+
+  .deal__time {
+    padding: 0 170px !important;
+  }
+
+  .deal__time-block {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .deal__time-number {
+    font-size: 28px !important;
+  }
+
+  .deal__time-text {
+    font-size: 10px !important;
+  }
+
+  .deal__button {
+    padding: 10px 20px !important;
+  }
+
+  .left-sidebar {
+    display: none !important;
+  }
+
+  .left-sidebar-mobile {
+    display: block !important;
+  }
+
+  .content {
+    margin-top: 40px !important;
+  }
+
+  .shop-details__gallery-small {
+    display: none !important;
+  }
+
+  .shop-details__gallery-mobile {
+    display: block !important;
+    margin-top: 20px !important;
+  }
+
+  .shop-details__avt {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .cart-product__img {
+    width: 300px !important;
+    height: auto !important;
+  }
+
+  .cart-product {
+    align-items: unset !important;
+  }
+
+  .cart-product__name {
+    font-size: 30px !important;
+    font-weight: bold !important;
+  }
+
+  .dp-none-mb {
+    display: none !important;
+  }
+
+  .cart-product__mobile {
+    display: block !important;
+  }
+
+  .cart-clear {
+    margin-right: auto !important;
+  }
+
+  .coupon-code__btn {
+    float: unset !important;
+    width: 100% !important;
+  }
+
+  .payment {
+    margin-top: 40px !important;
+  }
+  .header__icon-list {
+    position: absolute !important;
+    right: 10px !important;
+    top: -24px !important;
+    margin: 0 !important;
+  }
+  .header__icon-item:last-child {
+    margin-left: 10px !important;
+  }
+
+  .error-page__responsive-infor {
+    display: block !important;
+  }
+
+  .error-page__infor {
+    display: none !important;
+  }
+
+  .cart-total {
+    min-width: unset !important;
+  }
+
+  .continue-shopping {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner-text__heading {
+    font-size: 40px !important;
+  }
+
+  .banner-text__heading {
+    font-size: 28px !important;
+  }
+
+  .banner-text__description {
+    font-style: 14px !important;
+  }
+
+  .top-categoriest__title,
+  .trending-product__title,
+  .blog__title {
+    font-size: 28px !important;
+  }
+
+  .trending-fashion__video-block {
+    width: 100% !important;
+  }
+
+  iframe {
+    width: 100% !important;
+    /* height: auto!important; */
+  }
+
+  .deal__time {
+    padding: 0 90px !important;
+  }
+
+  .pagination {
+    margin-top: 10px !important;
+    padding-top: 20px !important;
+  }
+
+  .pagination-item__link {
+    --height: 30px !important;
+    min-width: 30px !important;
+    font-size: 14px !important;
+  }
+
+  .pagination-item {
+    margin: 0 10px !important;
+  }
+
+  .banner-details {
+    padding: 80px 0 70px !important;
+  }
+
+  .banner-details__heading {
+    font-size: 30px !important;
+  }
+
+  .banner-details__home > i,
+  .banner-details__home > span,
+  .banner-details__direction .fa-angle-double-right,
+  .banner-details__element {
+    font-size: 12px !important;
+  }
+
+  .shop-details__avt {
+    width: 30px !important;
+    height: 30px !important;
+    margin-bottom: 20px !important;
+  }
+  .shop-details__action-item {
+    font-size: 18px !important;
+  }
+
+  .cart-product__name {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .header__logo > img {
+    width: 150px !important;
+  }
+  .deal {
+    height: 200px !important;
+    background-size: cover !important;
+  }
+
+  .deal__time {
+    margin: 10px 0 20px 0 !important;
+    padding: 0 50px !important;
+  }
+
+  .deal__time-block {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .deal__time-number {
+    font-size: 14px !important;
+  }
+
+  .deal__time-text {
+    font-size: 8px !important;
+  }
+
+  .deal__button {
+    font-size: 10px !important;
+    padding: 8px 12px !important;
+  }
+
+  .blog__heading {
+    font-size: 14px !important;
+  }
+
+  .footer__payment {
+    display: block !important;
+    text-align: center !important;
+  }
+
+  .footer__input > button,
+  .footer__input > input {
+    width: 100% !important;
+  }
+  .pagination-item {
+    margin: 0 !important;
+  }
+
+  .shop-details__action-item {
+    font-size: 10px !important;
+    margin-right: 0 !important;
+  }
+
+  .shop-details__action-list {
+    justify-content: space-between !important;
+  }
+
+  .related-product__title {
+    font-size: 28px !important;
+  }
+
+  .cart-product__img {
+    width: 100px !important;
+  }
+
+  .cart-product__mobile-price {
+    margin-top: 10px !important;
+  }
+
+  .cart-quantity__text {
+    margin: 0 12px !important;
+  }
+
+  .cart-product__mobile-price > span {
+    font-size: 14px !important;
+  }
+
+  .cart-product__name {
+    font-size: 16px !important;
+  }
+
+  .cart-action {
+    flex-wrap: wrap !important;
+  }
+
+  .cart-clear,
+  .cart-update {
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
+  }
+  .side-bar__block {
+    width: 200px !important;
+  }
+  #toast {
+    width: 250px !important;
+  }
+
+  .side-bar-mobile {
+    width: 250px !important;
+  }
+
+  .left-sidebar__search-input {
+    width: 150px !important;
+  }
+
+  .left-sidebar__search-input::placeholder {
+    font-size: 12px !important;
+  }
+  .left-sidebar__search,
+  .left-sidebar__price-filter,
+  .left-sidebar__color-filter,
+  .left-sidebar__size-filter,
+  .left-sidebar__category,
+  .left-sidebar__popular-tag {
+    padding: 30px 10px !important;
+  }
+  .left-sidebar__price-filter-group {
+    flex-wrap: wrap;
+  }
+
+  .right-content__option {
+    padding: 20px 16px;
+  }
+}

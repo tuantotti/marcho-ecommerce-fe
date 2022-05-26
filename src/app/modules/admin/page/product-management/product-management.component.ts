@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IProduct } from 'app/modules/shop/type/shop.type';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductManagementService } from '../../services/ProductManagementService/product-management.service';
-import { IProduct } from '../../type/product-management.type';
 
 @Component({
   selector: 'app-product-management',
@@ -12,16 +12,14 @@ import { IProduct } from '../../type/product-management.type';
 export class ProductManagementComponent implements OnInit {
   @ViewChild('productTable') productTable!: Table;
   productDialog!: boolean;
-
   products!: IProduct[];
-
   product!: IProduct;
-
   selectedProducts?: IProduct[] | null;
-
   submitted!: boolean;
   statuses!: any[];
   uploadedFiles: any[] = [];
+  productImg: string[] = [];
+  totalProducts: number = 0;
   constructor(
     private productService: ProductManagementService,
     private messageService: MessageService,
@@ -64,19 +62,18 @@ export class ProductManagementComponent implements OnInit {
     });
   }
   saveProduct() {
-    this.submitted = true;
-    if (this.product.name!.trim()) {
-      if (this.product.id) {
-        this.productService.editProduct(this.product);
-      } else {
-        this.productService.saveProduct(
-          this.productService.generateProduct(this.product)
-        );
-      }
-
-      this.productDialog = false;
-      this.resetProduct();
-    }
+    // this.submitted = true;
+    // if (this.product.name!.trim()) {
+    //   if (this.product.id) {
+    //     this.productService.editProduct(this.product);
+    //   } else {
+    //     this.productService.saveProduct(
+    //       this.productService.generateProduct(this.product)
+    //     );
+    //   }
+    //   this.productDialog = false;
+    //   this.resetProduct();
+    // }
   }
   onUpload(event: any) {
     console.log(event);
@@ -91,7 +88,12 @@ export class ProductManagementComponent implements OnInit {
     });
   }
   openEditProductDialog(product: IProduct) {
-    this.product = { ...product };
+    this.product = product;
+    this.product.thumbnail.map((thumbnail) => {
+      thumbnail.urlImages.map((item) => {
+        this.productImg.push(item);
+      });
+    });
     this.productDialog = true;
   }
   hideDialog() {
@@ -105,13 +107,21 @@ export class ProductManagementComponent implements OnInit {
     );
   }
   resetProduct() {
+    this.productImg = [];
     this.product = {
-      categoryDto: {},
-    };
+      thumbnail: [{}],
+      category: {},
+    } as IProduct;
+  }
+  paginate(event: any) {
+    this.productService.getProducts({ page: event.page + 1, size: 6 });
   }
   ngOnInit(): void {
-    this.productService.getProducts();
+    this.productService.getProducts({ page: 1, size: 6 });
     this.productService.products$.subscribe((data) => (this.products = data));
+    this.productService.totalProducts$.subscribe(
+      (data) => (this.totalProducts = data)
+    );
     this.statuses = [
       { label: 'INSTOCK', value: 'instock' },
       { label: 'LOWSTOCK', value: 'lowstock' },

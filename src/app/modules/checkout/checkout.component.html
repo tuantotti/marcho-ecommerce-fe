@@ -1,0 +1,319 @@
+<div class="content">
+  <div class="container">
+    <form
+      action=""
+      [formGroup]="formContact"
+      (ngSubmit)="handleOrder()"
+      class="form-checkout"
+    >
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="contact-information">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="contact-information__title">Contact Information</h2>
+              </div>
+              <div class="col-md-6">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    First name<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="First name"
+                    formControlName="firstName"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('firstName')?.invalid || formContact.get('firstName')?.errors?.['required']) && (formContact.get('firstName')?.dirty || formContact.get('firstName')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Last name<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="Last name"
+                    formControlName="lastName"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('lastName')?.invalid || formContact.get('lastName')?.errors?.['required']) && (formContact.get('lastName')?.dirty || formContact.get('lastName')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Address<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="Address"
+                    formControlName="address"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('address')?.invalid || formContact.get('address')?.errors?.['required']) && (formContact.get('address')?.dirty || formContact.get('address')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    City<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="City"
+                    formControlName="city"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('city')?.invalid || formContact.get('city')?.errors?.['required']) && (formContact.get('city')?.dirty || formContact.get('city')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Country/State<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="Country/State"
+                    formControlName="country"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('country')?.invalid || formContact.get('country')?.errors?.['required']) && (formContact.get('country')?.dirty || formContact.get('country')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Postcode/Zip<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="Postcode/Zip"
+                    formControlName="postcode"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('postcode')?.invalid || formContact.get('postcode')?.errors?.['required']) && (formContact.get('postcode')?.dirty || formContact.get('postcode')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Phone<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="Phone"
+                    formControlName="phoneNumber"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('phoneNumber')?.invalid || formContact.get('phoneNumber')?.errors?.['required']) && (formContact.get('phoneNumber')?.dirty || formContact.get('phoneNumber')?.touched)"
+                  >
+                    Không để trống trường này!
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Mail<span style="color: red">*</span>
+                  </h3>
+                  <input
+                    autocomplete="off"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder="Mail"
+                    formControlName="email"
+                  />
+                  <p
+                    style="color: red"
+                    *ngIf="(formContact.get('email')?.invalid || formContact.get('email')?.errors?.['email']) && (formContact.get('email')?.dirty || formContact.get('email')?.touched)"
+                  >
+                    Hãy nhập đúng định dạng email!
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-information__block">
+                  <h3 class="contact-information__heading">
+                    Order Notes(optional)
+                  </h3>
+                  <textarea
+                    style="resize: none"
+                    rows="5"
+                    type="text"
+                    class="contact-information__input"
+                    placeholder=""
+                    formControlName="note"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="row">
+            <div class="your-order">
+              <div class="col-12" style="text-align: center">
+                <h3 class="your-order__title">YOUR ORDER</h3>
+              </div>
+              <div class="col-12">
+                <div class="your-order__block">
+                  <div class="your-order__heading">
+                    <span class="your-order__heading-text">Products</span>
+                  </div>
+                  <div style="margin: 10px 0">
+                    <div
+                      *ngFor="let product of cartProductList"
+                      class="your-order__product"
+                    >
+                      <span class="your-order__product-name">
+                        {{ product.name }}
+                      </span>
+                      <span class="your-order__product-price">
+                        {{ product.priceOut! | currency: "VND" }} x
+                        {{ product.quantity! }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="your-order__block">
+                  <div class="your-order__heading">
+                    <span class="your-order__heading-text">Subtotal</span>
+                    <span class="your-order__heading-price">
+                      {{ subTotal | currency: "VND" }}
+                    </span>
+                  </div>
+                </div>
+                <div class="your-order__block">
+                  <div class="your-order__heading">
+                    <span class="your-order__heading-text">Shipping</span>
+                    <span class="your-order__heading-price">
+                      {{ 0 | currency: "VND" }}
+                    </span>
+                  </div>
+                </div>
+                <div class="your-order__block">
+                  <div class="your-order__heading">
+                    <span class="your-order__heading-text">Voucher</span>
+                    <span class="your-order__heading-price">
+                      <span *ngIf="discount">-</span>
+                      {{ discount * subTotal | currency: "VND" }}
+                    </span>
+                  </div>
+                </div>
+                <div class="your-order__block">
+                  <div class="your-order__heading">
+                    <span class="your-order__heading-text">Total</span>
+                    <span
+                      class="your-order__heading-price"
+                      style="color: #fe3e57; font-weight: bold"
+                    >
+                      {{ subTotal - discount * subTotal | currency: "VND" }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-8">
+            <div class="payment-method">
+              <div class="col-12" style="text-align: center">
+                <h3 class="payment-method__title">Payment Method</h3>
+              </div>
+              <div class="col-12">
+                <mat-radio-group formControlName="paymentMethod">
+                  <div class="payment-method__block">
+                    <div class="payment-method__group">
+                      <mat-radio-button value="check-payment"
+                        >Check Payment</mat-radio-button
+                      >
+                      <!-- <input
+                      autocomplete="off"
+                      hidden
+                      type="checkbox"
+                      id="check-payment"
+                      class="payment-method__checkbox"
+                    />
+                    <label for="check-payment" class="payment-method__text"
+                      >Check Payment</label
+                    > -->
+                    </div>
+                    <p class="payment-method__description">
+                      Lorem ipsum dolor sit amet, constetur adipiscing elit, sed
+                      do eiusmod tempor incididunt ultr.
+                    </p>
+                  </div>
+                  <div class="payment-method__block">
+                    <div class="payment-method__group">
+                      <mat-radio-button value="paypal">Paypal</mat-radio-button>
+                      <!-- <input
+                      autocomplete="off"
+                      hidden
+                      type="checkbox"
+                      id="paypal"
+                      class="payment-method__checkbox"
+                    />
+                    <label for="paypal" class="payment-method__text"
+                      >Paypal</label
+                    > -->
+                    </div>
+                    <p class="payment-method__description">
+                      Lorem ipsum dolor sit amet, constetur adipiscing elit, sed
+                      do eiusmod tempor incididunt ultr.
+                    </p>
+                  </div>
+                </mat-radio-group>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="payment-method__btn">
+                  PLACE ORDER
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

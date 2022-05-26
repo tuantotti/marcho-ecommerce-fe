@@ -1,13 +1,27 @@
+export interface IProductColor {
+  id: number;
+  colorName: string;
+  colorCode: string;
+}
+export interface IProductThumbnail {
+  id: number;
+  star: number;
+  urlImages: string[];
+  color: IProductColor;
+}
 export interface IProduct {
-  id?: number;
-  code?: string;
-  name?: string;
-  description?: string;
-  priceOut?: number;
-  quantity?: number;
-  inventoryStatus?: string;
-  category?: string;
-  urlImage?: string;
-  subImage?: string[];
-  rating?: number;
+  id: string;
+  brand: string;
+  category: {
+    id: number;
+    name: string;
+  };
+  description: string;
+  name: string;
+  price: number;
+  thumbnail: IProductThumbnail[];
+}
+export interface IGetProducts {
+  page: number;
+  size: number;
 }

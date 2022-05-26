@@ -1,19 +1,19 @@
-<form class="login-form" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+<form class="login-form" [formGroup]="formRegister" (ngSubmit)="onSubmit()">
   <mat-form-field class="login-form__field" appearance="fill">
-    <mat-label>Username or Email address</mat-label>
+    <mat-label>Username</mat-label>
     <input
-      type="email"
+      type="text"
       matInput
       required
-      formControlName="userNameOrEmailAddress"
+      formControlName="username"
       autocomplete="off"
     />
     <mat-error
-      *ngIf="formLogin.get('userNameOrEmailAddress')?.invalid
-    || formLogin.get('userNameOrEmailAddress')?.errors?.['required']
-    || formLogin.get('userNameOrEmailAddress')?.touched"
+      *ngIf="formRegister.get('username')?.invalid
+    || formRegister.get('username')?.errors?.['required']
+    || formRegister.get('username')?.touched"
     >
-      Username or Email address is <strong>required</strong>
+      Username is <strong>required</strong>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="login-form__field" appearance="fill">
@@ -28,16 +28,49 @@
       {{ showPassword ? "visibility_off" : "visibility" }}
     </mat-icon>
     <mat-error
-      *ngIf="formLogin.get('password')?.invalid
-    || formLogin.get('password')?.errors?.['required']
-    || formLogin.get('password')?.touched"
+      *ngIf="formRegister.get('password')?.invalid
+    || formRegister.get('password')?.errors?.['required']
+    || formRegister.get('password')?.touched"
     >
       Password is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-  <mat-checkbox formControlName="agree"
-    >Agree with Terms & Conditions</mat-checkbox
-  >
+  <mat-form-field class="login-form__field" appearance="fill">
+    <mat-label>Email address</mat-label>
+    <input
+      type="email"
+      matInput
+      required
+      formControlName="email"
+      autocomplete="off"
+    />
+    <mat-error
+      *ngIf="formRegister.get('email')?.invalid
+    || formRegister.get('email')?.errors?.['required']
+    || formRegister.get('email')?.touched"
+    >
+      Email address is <strong>invalid</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="login-form__field" appearance="fill">
+    <mat-label>Phone number</mat-label>
+    <input
+      type="text"
+      matInput
+      required
+      formControlName="phone"
+      autocomplete="off"
+    />
+    <mat-error
+      *ngIf="
+        formRegister.get('phone')?.invalid || formRegister.get('phone')?.touched
+      "
+    >
+      Phone number is <strong>invalid</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox>Agree with Terms & Conditions</mat-checkbox>
   <p class="register-description">
     Your personal data will be used to support your experience throughout this
     website, to manage access to your account, and for other purposes described

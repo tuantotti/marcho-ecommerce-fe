@@ -10,12 +10,10 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthenticationService) {}
   showPassword: boolean = false;
   formLogin: FormGroup = new FormGroup({
-    userNameOrEmailAddress: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    rememberMe: new FormControl(false),
   });
   onSubmit() {
-    console.log(this.formLogin.get('userNameOrEmailAddress'));
     if (this.formLogin.status === 'VALID') {
       this.authService.logIn(this.formLogin.value);
     }

@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthenticationService } from 'app/modules/authentication/service/authentication.service';
 
+enum ERole {
+  ROLE_ADMIN,
+  ROLE_USER,
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -11,12 +15,13 @@ export class AdminGuard implements CanActivate {
     private authService: AuthenticationService
   ) {}
   canActivate(): boolean {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.log('login');
-      this.router.navigate(['/admin/login']);
+    const roles = JSON.parse(localStorage.getItem('role')!);
+    const isAdmin = roles.includes(ERole[ERole.ROLE_ADMIN]);
+    if (isAdmin) {
+      return true;
+    } else {
+      this.router.navigate(['/home']);
       return false;
     }
-    return true;
   }
 }

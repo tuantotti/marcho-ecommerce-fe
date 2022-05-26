@@ -18,7 +18,9 @@ export class ShopComponent implements OnInit {
     private cartService: CartService,
     private toast: ToastrService
   ) {}
+
   products!: IProduct[];
+  totalProducts: number = 0;
   sortOptions!: SelectItem[];
 
   sortOrder!: number;
@@ -72,13 +74,20 @@ export class ShopComponent implements OnInit {
   handleFilterByName(event: Event) {
     this.dataView.filter((event.target! as HTMLInputElement).value);
   }
+
+  paginate(event: any) {
+    this.shopService.getProducts({ page: event.page + 1, size: 6 });
+  }
   ngOnInit(): void {
     this.sortOptions = [
       { label: 'Price High to Low', value: '!priceOut' },
       { label: 'Price Low to High', value: 'priceOut' },
     ];
-    this.shopService.getProducts();
+    this.shopService.getProducts({ page: 1, size: 6 });
 
     this.shopService.products$.subscribe((data) => (this.products = data));
+    this.shopService.totalProducts$.subscribe(
+      (data) => (this.totalProducts = data)
+    );
   }
 }

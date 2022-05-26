@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://6223035e666291106a32adc7.mockapi.io',
+  // serverUrl: 'https://6223035e666291106a32adc7.mockapi.io',
+  serverUrl: 'http://localhost:8080',
 };
 
 /*

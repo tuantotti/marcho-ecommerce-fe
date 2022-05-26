@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from './core/guard/admin/admin.guard';
 import { UserGuard } from './core/guard/user/user.guard';
+import { ErrorPageComponent } from './modules/error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,13 @@ const routes: Routes = [
       import('app/modules/cart/cart.module').then((m) => m.CartModule),
   },
   {
+    path: 'checkout',
+    loadChildren: () =>
+      import('app/modules/checkout/checkout.module').then(
+        (m) => m.CheckoutModule
+      ),
+  },
+  {
     path: 'user',
     loadChildren: () =>
       import('app/modules/user/user.module').then((m) => m.UserModule),
@@ -41,8 +49,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('app/modules/admin/admin.module').then((m) => m.AdminModule),
+    canActivate: [AdminGuard],
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

@@ -15,31 +15,33 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="banner-img">
-          <div>
-            <img
-              src="./assets/img/banner-1.jpeg"
-              class="banner-img__slide banner-img__slide--active"
-            />
-            <img src="./assets/img/banner-2.jpeg" class="banner-img__slide" />
-            <img src="./assets/img/banner-3.jpeg" class="banner-img__slide" />
-            <img src="./assets/img/banner-4.jpeg" class="banner-img__slide" />
-          </div>
-          <div class="slide-prev"></div>
-          <div class="slide-next"></div>
-        </div>
-      </div>
-      <ul class="banner-position-list">
-        <li
-          #positionItem
-          class="banner-position-item banner-position-item--active"
+        <p-carousel
+          [value]="banner"
+          styleClass="custom-carousel"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="true"
+          [autoplayInterval]="3000"
+          [responsiveOptions]="responsiveOptionsBanner"
         >
-          .
-        </li>
-        <li #positionItem class="banner-position-item">.</li>
-        <li #positionItem class="banner-position-item">.</li>
-        <li #positionItem class="banner-position-item">.</li>
-      </ul>
+          <ng-template let-banner pTemplate="item">
+            <div class="product-item">
+              <div
+                class="product-item-content"
+                style="border: none; padding: 0; padding-top: 4rem"
+              >
+                <div class="mb-3">
+                  <img
+                    [src]="banner"
+                    class="product-image"
+                    style="width: 100%"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
     </div>
   </div>
 </div>
@@ -50,7 +52,7 @@
       <div class="col-lg-4">
         <div class="benefit__block">
           <div class="benefit__block-icon">
-            <i class="fas fa-truck-moving"></i>
+            <mat-icon>local_shipping</mat-icon>
           </div>
           <h3 class="benefit__block-heading">Free Shipping Order 100$</h3>
           <div class="benefit__block-description">
@@ -61,7 +63,7 @@
       <div class="col-lg-4 mtb-60-mobile">
         <div class="benefit__block">
           <div class="benefit__block-icon" style="background-color: #34c4ff">
-            <i class="fas fa-calendar-day"></i>
+            <mat-icon>today</mat-icon>
           </div>
           <h3 class="benefit__block-heading">30 Days Easy Return</h3>
           <div class="benefit__block-description">
@@ -72,7 +74,7 @@
       <div class="col-lg-4">
         <div class="benefit__block">
           <div class="benefit__block-icon" style="background-color: #fe3e57">
-            <i class="fas fa-headset"></i>
+            <mat-icon>headset_mic</mat-icon>
           </div>
           <h3 class="benefit__block-heading">24/7 Customer Support</h3>
           <div class="benefit__block-description">
@@ -252,7 +254,7 @@
           [numScroll]="1"
           [circular]="true"
           [autoplayInterval]="3000"
-          [responsiveOptions]="responsiveOptions"
+          [responsiveOptions]="responsiveOptionsTrending"
           [showIndicators]="false"
         >
           <ng-template let-product pTemplate="item">
@@ -260,10 +262,7 @@
               <div class="product-item-content">
                 <div class="mb-3" [routerLink]="['/product', product.id]">
                   <img
-                    [src]="
-                      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
-                      product.urlImage
-                    "
+                    [src]="product.thumbnail[0].urlImages[0]"
                     [alt]="product.name"
                     width="100"
                     class="product-image"
@@ -274,15 +273,11 @@
                     {{ product.name }}
                   </h4>
                   <h4 class="mt-0 mb-3">
-                    {{ product.priceOut | currency: "VND" }}
+                    {{ product.price | currency: "VND" }}
                   </h4>
-                  <span
-                    [class]="
-                      'product-badge status-' +
-                      product.inventoryStatus.toLowerCase()
-                    "
-                    >{{ product.inventoryStatus }}</span
-                  >
+                  <span [class]="'product-badge status-' + 'instock'">{{
+                    "INSTOCK"
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -303,19 +298,19 @@
           <h2 class="deal__heading">DEAL OF THE DAY</h2>
           <div class="deal__time">
             <div class="deal__time-block">
-              <h3 class="deal__time-number">10</h3>
+              <h3 class="deal__time-number">{{ days }}</h3>
               <h3 class="deal__time-text">Days</h3>
             </div>
             <div class="deal__time-block">
-              <h3 class="deal__time-number">08</h3>
+              <h3 class="deal__time-number">{{ hours }}</h3>
               <h3 class="deal__time-text">Hours</h3>
             </div>
             <div class="deal__time-block">
-              <h3 class="deal__time-number">11</h3>
+              <h3 class="deal__time-number">{{ minitues }}</h3>
               <h3 class="deal__time-text">Miniutes</h3>
             </div>
             <div class="deal__time-block">
-              <h3 class="deal__time-number">39</h3>
+              <h3 class="deal__time-number">{{ seconds }}</h3>
               <h3 class="deal__time-text">Seconds</h3>
             </div>
           </div>
