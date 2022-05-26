@@ -89,6 +89,7 @@ export class ProductManagementComponent implements OnInit {
   }
   openEditProductDialog(product: IProduct) {
     this.product = product;
+    this.productImg = [];
     this.product.thumbnail.map((thumbnail) => {
       thumbnail.urlImages.map((item) => {
         this.productImg.push(item);
