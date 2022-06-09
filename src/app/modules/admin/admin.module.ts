@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'app/core/material/material.module';
 import { PrimeModule } from 'app/core/prime/prime.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -22,6 +22,7 @@ import { UserManagementComponent } from './page/user-management/user-management.
   ],
   imports: [
     ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     AdminRoutingModule,
     MaterialModule,

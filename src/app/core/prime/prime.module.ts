@@ -26,6 +26,7 @@ import { SliderModule } from 'primeng/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { CarouselModule } from 'primeng/carousel';
 import { PaginatorModule } from 'primeng/paginator';
+import { TreeSelectModule } from 'primeng/treeselect';
 const PrimeComponents = [
   AccordionModule,
   CheckboxModule,
@@ -55,6 +56,7 @@ const PrimeComponents = [
   GalleriaModule,
   CarouselModule,
   PaginatorModule,
+  TreeSelectModule,
 ];
 
 @NgModule({

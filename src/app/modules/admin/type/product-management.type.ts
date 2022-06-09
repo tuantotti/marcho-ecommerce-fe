@@ -21,3 +21,26 @@ export interface IProduct {
     name?: string;
   };
 }
+export interface ICategories {
+  id: string;
+  name: string;
+  parentId: string;
+  displayOrder: number;
+}
+
+export interface IColors {
+  id: number;
+  colorName: string;
+  colorCode: string;
+}
+
+export interface ISizes {
+  id: number;
+  name: string;
+}
+
+export interface IDetailRow {
+  color: IColors;
+  size: ISizes;
+  quantity: number;
+}

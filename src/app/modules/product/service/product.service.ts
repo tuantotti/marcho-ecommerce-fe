@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { IProductReview } from '../type/product.type';
-import { IProduct } from '../../cart/type/cart.type';
+import { IProduct, IProductReview } from '../type/product.type';
 import { ProductApiService } from './product-api.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -23,26 +22,26 @@ export class ProductService {
   get productReview$() {
     return this.productReviewBS.asObservable();
   }
-  getProduct(id: number) {
+  getProduct(id: string) {
     this.productApiService
       .getProduct(id)
       .subscribe((data) => this.productBS.next(data));
   }
-  getProductReview(id: number) {
-    this.productApiService.getProductReview().subscribe((data) => {
-      const reviewList = data.filter((item: any) => item.postId === id);
-      this.productReviewBS.next(reviewList);
-    });
-  }
-  saveReview(review: IProductReview) {
-    this.productApiService.saveReview(review).subscribe(
-      (data) => {
-        this.toastr.success('Sent review successfully!');
-        this.getProductReview(review.postId);
-      },
-      (err) => {
-        this.toastr.error('Sent review error!');
-      }
-    );
-  }
+  // getProductReview(id: string) {
+  //   this.productApiService.getProductReview().subscribe((data) => {
+  //     const reviewList = data.filter((item: any) => item.postId === id);
+  //     this.productReviewBS.next(reviewList);
+  //   });
+  // }
+  // saveReview(review: IProductReview) {
+  //   this.productApiService.saveReview(review).subscribe(
+  //     (data) => {
+  //       this.toastr.success('Sent review successfully!');
+  //       this.getProductReview(review.postId);
+  //     },
+  //     (err) => {
+  //       this.toastr.error('Sent review error!');
+  //     }
+  //   );
+  // }
 }

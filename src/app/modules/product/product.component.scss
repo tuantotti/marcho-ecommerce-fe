@@ -120,6 +120,7 @@
     &-detail {
       color: #8d8d8d;
       font-size: 16px;
+      text-transform: capitalize;
     }
   }
   &__group {
@@ -236,4 +237,11 @@
 }
 .size-radio-btn {
   display: none;
+}
+
+.field-color-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
 }

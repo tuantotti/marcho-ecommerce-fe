@@ -6,50 +6,38 @@
           [showItemNavigators]="true"
           [showThumbnailNavigators]="false"
           [responsiveOptions]="responsiveOptions"
-          [value]="product.subImage!"
-          [numVisible]="4"
+          [value]="thumbnailImgList"
           thumbnailsPosition="left"
+          [numVisible]="4"
           [containerStyle]="{ 'max-width': '100%' }"
           [circular]="true"
           [autoPlay]="true"
           [transitionInterval]="2000"
+          [showThumbnails]="false"
         >
           <ng-template pTemplate="item" let-item>
             <img
               class="img-item"
-              [src]="
-                'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
-                item
-              "
+              [src]="item"
+              alt="img"
               style="width: 100%; display: block"
             />
           </ng-template>
           <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
-              <img
-                class="img-thumbnail"
-                [src]="
-                  'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/' +
-                  item
-                "
-              />
+              <img class="img-thumbnail" [src]="item" alt="img" />
             </div>
           </ng-template>
         </p-galleria>
       </div>
       <div class="col-md-4">
-        <form
-          [formGroup]="productForm"
-          (ngOnsubmit)="(handleAddProduct)"
-          class="product-info"
-        >
+        <form class="product-info" [formGroup]="productInfo">
           <h3 class="product-info__name">{{ product.name }}</h3>
           <div class="product-info__cost">
             <span class="product-info__cost-text">{{
               product.priceOut | currency: "VND"
             }}</span>
             <div class="product-info__cost-rating">
-              <!-- formControlName="rating" -->
               <p-rating
                 [readonly]="true"
                 [stars]="5"
@@ -67,46 +55,20 @@
           <div class="product-info__color">
             <h3 class="product-info__title">Color</h3>
             <div class="product-info__group">
-              <div
-                *ngFor="let color of product.color"
-                class="field-color-checkbox"
-              >
-                <mat-radio-group formControlName="color" name="colors">
-                  <mat-radio-button [value]="color">
-                    {{ color }}
-                  </mat-radio-button>
-                </mat-radio-group>
+              <div class="field-color-checkbox">
+                <ng-container *ngFor="let item of product.colors">
+                  <ng-container *ngFor="let s of item.sizes">
+                    <mat-radio-group formControlName="colorNSize" name="colors">
+                      <mat-radio-button
+                        [value]="{ colorId: item.color.id, sizeId: s.size.id }"
+                      >
+                        {{ item.color.colorName }} ({{ s.size.name }})
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </ng-container>
+                </ng-container>
               </div>
             </div>
-          </div>
-          <div class="product-info__size">
-            <h3 class="product-info__title">Size</h3>
-
-            <div class="product-info__group">
-              <div
-                *ngFor="let size of product.size"
-                class="field-size-checkbox"
-              >
-                <mat-radio-group formControlName="size" name="sizes">
-                  <mat-radio-button [value]="size">
-                    {{ size }}
-                  </mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-
-            <!-- <div class="product-info__group">
-              <div
-                *ngFor="let size of product.size"
-                class="field-color-checkbox"
-              >
-                <mat-radio-group formControlName="size" name="sizes">
-                  <mat-radio-button [value]="size" checked="true">
-                    {{ size }}
-                  </mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div> -->
           </div>
           <div class="product-info__category">
             <div class="row">
@@ -115,7 +77,7 @@
               </div>
               <div class="col-8">
                 <h3 class="product-info__category-detail">
-                  {{ product.categoryDto?.name }}
+                  {{ product.category.name }}
                 </h3>
               </div>
             </div>
@@ -161,7 +123,11 @@
         </div>
       </div>
     </div>
-    <form [formGroup]="formReview" (ngSubmit)="onSubmit()" class="my-review">
+    <form
+      [formGroup]="formReview"
+      (ngSubmit)="handleAddReview()"
+      class="my-review"
+    >
       <div class="row">
         <div class="col-md-12">
           <h3 class="my-review__heading">Adding your review</h3>

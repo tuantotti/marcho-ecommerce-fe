@@ -11,13 +11,13 @@ export class ProductApiService {
   API_URL = environment.serverUrl;
 
   constructor(private http: HttpClient) {}
-  getProduct(id: number): Observable<any> {
-    return this.http.get(`${this.API_URL}/product/${id}`);
+  getProduct(id: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/api/products/${id}`);
   }
-  getProductReview(): Observable<any> {
-    return this.http.get(`${this.API_URL}/review/`);
-  }
-  saveReview(review: IProductReview): Observable<any> {
-    return this.http.post(`${this.API_URL}/review`, review);
-  }
+  // getProductReview(): Observable<any> {
+  //   return this.http.get(`${this.API_URL}/review/`);
+  // }
+  // saveReview(review: IProductReview): Observable<any> {
+  //   return this.http.post(`${this.API_URL}/review`, review);
+  // }
 }

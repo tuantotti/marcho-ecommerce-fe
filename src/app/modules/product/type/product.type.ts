@@ -1,24 +1,40 @@
-export interface IProduct {
-  id: string;
-  code: string;
+export interface ISize {
+  id: number;
   name: string;
-  description: string;
-  urlImage: string;
-  subImage: string[];
-  priceOut: number;
+}
+export interface ISizes {
+  id: number;
   quantity: number;
-  inventoryStatus: string;
-  rating: number;
-  multipartFile: '';
-  color: string;
-  brand: string;
-  size: string;
-  countBuy: number;
-  discount: string;
-  categoryDto: {
-    id: string;
-    name: string;
-  };
+  size: ISize;
+}
+export interface IColor {
+  id: number;
+  colorName: string;
+  colorCode: string;
+}
+export interface IColors {
+  id: number;
+  start: number;
+  urlImages: string[];
+  color: IColor;
+  sizes: ISizes[];
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  parentId: string;
+  displayOrder: number;
+}
+export interface IProduct {
+  id?: string;
+  name?: string;
+  brand?: string;
+  priceOut?: number;
+  description?: string;
+  totalQuantity: number;
+  colors: IColors[];
+  category: ICategory;
 }
 
 export interface IProductReview {

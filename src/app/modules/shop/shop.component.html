@@ -8,8 +8,8 @@
             <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>
             <div class="side-bar__filter-price-info">
               <h3 class="side-bar__filter-price-range">
-                Price" {{ rangeValues[0] * 100000 | currency: "VND" }} -
-                {{ rangeValues[1] * 100000 | currency: "VND" }}
+                Price" {{ rangeValues[0] * priceUnit | currency: "VND" }} -
+                {{ rangeValues[1] * priceUnit | currency: "VND" }}
               </h3>
               <button
                 pButton
@@ -17,6 +17,7 @@
                 type="button"
                 label="Filter"
                 class="p-button-raised side-bar__filter-price-btn"
+                (click)="handleFilterByPrice()"
               ></button>
             </div>
           </div>
@@ -25,16 +26,20 @@
             <mat-radio-group name="color-filter">
               <ul class="side-bar__filter-color">
                 <mat-radio-button
+                  (change)="handleFilterByColors($event)"
                   *ngFor="let item of colorFilterList"
-                  [value]="item.title.toLowerCase()"
+                  [value]="item.id"
                 >
                   <li class="side-bar__filter-color-item">
                     <span class="side-bar__filter-color-title">
-                      {{ item.title }}
+                      {{ item.colorName }}
                     </span>
                     <span
                       class="side-bar__filter-color-background"
-                      [style.backgroundColor]="item.color"
+                      [style.backgroundColor]="item.colorCode"
+                      [style.border]="
+                        item.colorCode === '#FFFFFF' ? '1px solid #ccc' : ''
+                      "
                     >
                     </span>
                   </li>
@@ -47,11 +52,14 @@
             <mat-radio-group name="category-filter">
               <ul class="side-bar__filter-category">
                 <mat-radio-button
+                  (change)="handleFilterByCategories($event)"
                   *ngFor="let item of categoryFilterList"
-                  [value]="item.toLowerCase()"
+                  [value]="item.id"
                 >
                   <li class="side-bar__filter-category-item">
-                    <span>{{ item }}</span>
+                    <span>
+                      {{ item.name }}
+                    </span>
                   </li>
                 </mat-radio-button>
               </ul>
@@ -61,7 +69,6 @@
       </div>
       <div class="col-9">
         <div class="shop-content">
-          <!-- [paginator]="true" -->
           <p-dataView
             #dataView
             [value]="products"
@@ -79,7 +86,7 @@
                   [options]="sortOptions"
                   [(ngModel)]="sortKey"
                   placeholder="Sort By Price"
-                  (onChange)="onSortChange($event)"
+                  (onChange)="handleSortByOrder($event)"
                   styleClass="p-mb-2 p-mb-md-0"
                 ></p-dropdown>
                 <span class="p-input-icon-left p-mb-2 p-mb-md-0">

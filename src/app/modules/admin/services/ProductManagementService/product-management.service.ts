@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { IGetProducts, IProduct } from 'app/modules/shop/type/shop.type';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
+import {
+  ICategories,
+  IColors,
+  ISizes,
+} from '../../type/product-management.type';
 import { ProductManagementApiService } from './product-management-api.service';
 
 @Injectable({
@@ -13,12 +18,34 @@ export class ProductManagementService {
     private toast: ToastrService
   ) {}
   private productsBS = new BehaviorSubject<IProduct[]>([]);
+  private currentProductBS = new BehaviorSubject<IProduct>({
+    thumbnail: [{}],
+    category: {},
+  } as IProduct);
   private totalProductsBS = new BehaviorSubject<number>(0);
+  private categoriesBS = new BehaviorSubject<ICategories[]>([]);
+  private colorsBS = new BehaviorSubject<IColors[]>([]);
+  private sizesBS = new BehaviorSubject<ISizes[]>([]);
   get products$() {
     return this.productsBS.asObservable();
   }
   get totalProducts$() {
     return this.totalProductsBS.asObservable();
+  }
+  get categories$() {
+    return this.categoriesBS.asObservable();
+  }
+  get colors$() {
+    return this.colorsBS.asObservable();
+  }
+  get sizes$() {
+    return this.sizesBS.asObservable();
+  }
+  get currentProduct$() {
+    return this.currentProductBS.asObservable();
+  }
+  set currentProduct(value: IProduct) {
+    this.currentProductBS.next(value);
   }
   getProducts({ page, size }: IGetProducts) {
     this.productManagementApiService.getProducts({ page, size }).subscribe(
@@ -74,6 +101,21 @@ export class ProductManagementService {
           console.log(err);
         }
       );
+    });
+  }
+  getCategories() {
+    this.productManagementApiService.getCategories().subscribe((data) => {
+      this.categoriesBS.next(data);
+    });
+  }
+  getSizes() {
+    this.productManagementApiService.getSizes().subscribe((data) => {
+      this.sizesBS.next(data);
+    });
+  }
+  getColors() {
+    this.productManagementApiService.getColors().subscribe((data) => {
+      this.colorsBS.next(data);
     });
   }
 }
