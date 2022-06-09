@@ -18,22 +18,14 @@
           <ng-template pTemplate="item" let-item>
             <img
               class="img-item"
-              [src]="
-                'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/6da1ae233d1c400d8baead9f0106a3d5_9366/Tat_Chay_Bo_Co_Thap_DJen_HE4969_03_standard.jpg'
-              "
+              [src]="item"
               alt="img"
               style="width: 100%; display: block"
             />
           </ng-template>
           <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
-              <img
-                class="img-thumbnail"
-                [src]="
-                  'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/6da1ae233d1c400d8baead9f0106a3d5_9366/Tat_Chay_Bo_Co_Thap_DJen_HE4969_03_standard.jpg'
-                "
-                alt="img"
-              />
+              <img class="img-thumbnail" [src]="item" alt="img" />
             </div>
           </ng-template>
         </p-galleria>
