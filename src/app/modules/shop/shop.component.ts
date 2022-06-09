@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IProduct } from './type/shop.type';
-import { SelectItem } from 'primeng/api';
-import { DataView } from 'primeng/dataview';
-import { ShopService } from './services/shop.service';
+import { MatRadioChange } from '@angular/material/radio';
 import { ToastrService } from 'ngx-toastr';
+import { SelectItem } from 'primeng/api';
+import { combineLatest } from 'rxjs';
+import { ICategories, IColors } from '../admin/type/product-management.type';
 import { CartService } from '../cart/service/cart.service';
+import { ProductManagementService } from './../admin/services/ProductManagementService/product-management.service';
+import { ShopService } from './services/shop.service';
+import { IProduct } from './type/shop.type';
 
 @Component({
   selector: 'app-shop',
@@ -12,9 +15,9 @@ import { CartService } from '../cart/service/cart.service';
   styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('dataView') dataView!: DataView;
   constructor(
     private shopService: ShopService,
+    private productManagementService: ProductManagementService,
     private cartService: CartService,
     private toast: ToastrService
   ) {}
@@ -28,60 +31,44 @@ export class ShopComponent implements OnInit {
   sortField!: string;
   sortKey!: string;
   rangeValues: number[] = [20, 80];
-  colorFilterList = [
-    {
-      title: 'Blue',
-      color: '#03aeef',
-    },
-    {
-      title: 'Red',
-      color: '#f52475',
-    },
-    {
-      title: 'Green',
-      color: '#25d5ac',
-    },
-    {
-      title: 'Orange',
-      color: '#ff7e00',
-    },
-    {
-      title: 'Black',
-      color: '#000',
-    },
-    {
-      title: 'Purple',
-      color: '#92399a',
-    },
-    {
-      title: 'Grey',
-      color: '#868a93',
-    },
-  ];
-  categoryFilterList = ['Shirt', 'Pant', 'Shoes', 'Accessory'];
-  onSortChange(event: any) {
-    console.log(event);
-    let value = event.value;
-
-    if (value.indexOf('!') === 0) {
-      this.sortOrder = -1;
-      this.sortField = value.substring(1, value.length);
-    } else {
-      this.sortOrder = 1;
-      this.sortField = value;
-    }
+  priceUnit: number = 100000;
+  colorFilterList: IColors[] = [];
+  categoryFilterList: ICategories[] = [];
+  handleSortByOrder(event: any) {
+    console.log(event.value);
   }
   handleFilterByName(event: Event) {
-    this.dataView.filter((event.target! as HTMLInputElement).value);
+    const name = (event.target! as HTMLInputElement).value;
+    console.log(name);
   }
-
+  handleFilterByPrice() {
+    const start = this.rangeValues[0] * this.priceUnit;
+    const end = this.rangeValues[1] * this.priceUnit;
+    this.shopService.getProductByPrice(start, end);
+  }
+  handleFilterByColors(event: MatRadioChange) {
+    console.log(event.value);
+  }
+  handleFilterByCategories(event: MatRadioChange) {
+    console.log(event.value);
+  }
   paginate(event: any) {
     this.shopService.getProducts({ page: event.page + 1, size: 6 });
   }
   ngOnInit(): void {
+    this.productManagementService.getColors();
+    this.productManagementService.getCategories();
+
+    combineLatest(
+      this.productManagementService.colors$,
+      this.productManagementService.categories$
+    ).subscribe((data) => {
+      (this.colorFilterList = data[0]), (this.categoryFilterList = data[1]);
+    });
+
     this.sortOptions = [
-      { label: 'Price High to Low', value: '!priceOut' },
-      { label: 'Price Low to High', value: 'priceOut' },
+      { label: 'Price Low to High', value: 'asc' },
+      { label: 'Price High to Low', value: 'desc' },
     ];
     this.shopService.getProducts({ page: 1, size: 6 });
 

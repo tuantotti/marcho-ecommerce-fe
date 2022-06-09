@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../cart/service/cart.service';
 import { ProductService } from './service/product.service';
-import { IProductReview } from './type/product.type';
-import { IProduct } from '../cart/type/cart.type';
+import { IProduct, IProductReview } from './type/product.type';
 
 @Component({
   selector: 'app-product',
@@ -19,22 +18,18 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
     private toastr: ToastrService
   ) {}
-  id!: number;
+  id!: string;
   product!: IProduct;
   reviewList!: IProductReview[];
   cartProducts!: IProduct[];
-  productForm: FormGroup = new FormGroup({
-    urlImage: new FormControl([]),
-    name: new FormControl(),
-    priceOut: new FormControl(),
-    color: new FormControl(),
-    size: new FormControl(),
-  });
   formReview: FormGroup = new FormGroup({
     rating: new FormControl(4),
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     description: new FormControl(''),
+  });
+  productInfo: FormGroup = new FormGroup({
+    colorNSize: new FormControl(),
   });
   responsiveOptions: any[] = [
     {
@@ -57,70 +52,40 @@ export class ProductComponent implements OnInit {
     { name: 'XL', key: 'XL' },
     { name: 'XXL', key: 'XXL' },
   ];
+  thumbnailImgList: string[] = [];
+
   handleRatingReview(rating: number) {
     return Number(rating.toString()[0]) % 5;
   }
 
   handleAddProduct() {
-    const isValidationProduct = Object.values(this.productForm.value).every(
-      (value) => value
-    );
-    if (!this.productForm.get('color')!.value) {
-      this.toastr.error('Please select product color!');
-    } else if (!this.productForm.get('size')!.value) {
-      this.toastr.error('Please select product size!');
-    }
-    if (isValidationProduct) {
-      let isAlready = false;
-
-      this.cartProducts.map((item) => {
-        const idAlready = item.id;
-        delete item.id;
-        this.productForm.value.quantity = item.quantity;
-        if (JSON.stringify(item) === JSON.stringify(this.productForm.value)) {
-          isAlready = true;
-          item.quantity!++;
-          this.cartService.updateProductInCart({ id: idAlready, ...item });
-          this.toastr.success(
-            `Update product: ${item.name}, Size: ${item.size}, Color: ${item.color} successfully!`
-          );
-        }
-      });
-      if (!isAlready) {
-        this.cartService.addProductToCart({
-          ...this.productForm.value,
-          quantity: 1,
-        });
-      }
-    }
-  }
-
-  onSubmit() {
-    this.productService.saveReview({
-      postId: this.id,
-      createdAt: new Date(),
-      ...this.formReview.value,
+    // console.log(this.productInfo.get('colorNSize')!.value.colorId);
+    console.log({
+      id: this.product.id,
+      name: this.product.name,
+      description: this.product.description,
+      colorId: this.productInfo.get('colorNSize')!.value.colorId,
+      sizeId: this.productInfo.get('colorNSize')!.value.sizeId,
+      priceOut: this.product.priceOut,
     });
-    this.formReview.reset();
   }
+
+  handleAddReview() {}
 
   ngOnInit(): void {
-    this.id = Number(this.activeRouter.snapshot.params['id']);
+    this.id = this.activeRouter.snapshot.params['id'];
 
     this.productService.getProduct(this.id);
-    this.productService.getProductReview(this.id);
+    // this.productService.getProductReview(this.id);
 
     this.productService.product$.subscribe((data) => {
       this.product = data;
-      this.productForm.patchValue({
-        name: data?.name,
-        priceOut: data?.priceOut,
-        urlImage: data?.urlImage,
+      let arr: any = [];
+      this.product.colors.map((color) => {
+        console.log((arr = [...arr, ...color.urlImages.map((item) => item)]));
       });
+      this.thumbnailImgList = arr;
     });
-    this.cartService.cartProducts$.subscribe(
-      (data) => (this.cartProducts = data)
-    );
     this.productService.productReview$.subscribe(
       (data) => (this.reviewList = data)
     );

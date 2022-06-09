@@ -16,7 +16,9 @@ export class ShopApiService {
       `${this.API_URL}/api/products?page=${page}&size=${size}`
     );
   }
-  getCartProducts(): Observable<any> {
-    return this.http.get(`${this.API_URL}/cart`);
+  getProductByPrice(start: number, end: number): Observable<any> {
+    return this.http.get(
+      `${this.API_URL}/api/products/price?start=${start}&end=${end}`
+    );
   }
 }

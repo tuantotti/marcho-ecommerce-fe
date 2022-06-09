@@ -155,6 +155,27 @@
   .p-fileupload .p-fileupload-buttonbar .p-button.p-fileupload-choose.p-focus {
     box-shadow: none;
   }
+  .p-fileupload-row > div > img {
+    width: 100%;
+  }
+  .p-dialog-header-icons {
+    display: none !important;
+  }
+  .p-button.p-button-secondary.p-button-outlined,
+  .p-button.p-button-secondary.p-button-outlined:enabled:hover {
+    border-width: 2px;
+    width: 2rem;
+    height: 2rem;
+  }
+  .p-button.p-button-secondary,
+  .p-button.p-button-secondary:enabled:hover {
+    background-color: #d9d9d9;
+    border-color: #d9d9d9;
+    box-shadow: 0 1px 5px #d9d9d9;
+  }
+  .pi.pi-times {
+    color: #333;
+  }
   /* Responsive */
   .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
     display: none;
@@ -201,12 +222,9 @@
     padding-left: 6px;
   }
 }
-.field {
-  margin-bottom: 1rem;
-  & > label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
+.label-text {
+  display: inline-block;
+  margin-bottom: 0.5rem;
 }
 .grid {
   display: flex;
@@ -237,6 +255,13 @@
   border-radius: 6px;
 }
 
+.times {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+}
 @media screen and (max-width: 960px) {
   :host ::ng-deep {
     .p-datatable {

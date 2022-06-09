@@ -10,7 +10,7 @@
             label="New"
             icon="pi pi-plus"
             class="p-button-success mr-2"
-            (click)="openNew()"
+            (click)="handleOpenAddProductDialog()"
           ></button>
           <button
             pButton
@@ -37,7 +37,6 @@
         #productTable
         [value]="products"
         [rows]="10"
-        [paginator]="true"
         [globalFilterFields]="[
           'name',
           'country.name',
@@ -80,9 +79,6 @@
             <th pSortableColumn="categoryDto.name">
               Category <p-sortIcon field="categoryDto.name"></p-sortIcon>
             </th>
-            <th pSortableColumn="rating">
-              Reviews <p-sortIcon field="rating"></p-sortIcon>
-            </th>
             <th pSortableColumn="inventoryStatus">
               Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
             </th>
@@ -113,13 +109,6 @@
               {{ product.category.name }}
             </td>
             <td>
-              <p-rating
-                [ngModel]="product.star"
-                [readonly]="true"
-                [cancel]="false"
-              ></p-rating>
-            </td>
-            <td>
               <span [class]="'product-badge status-' + 'instock'">{{
                 "INSTOCK"
               }}</span>
@@ -130,7 +119,7 @@
                 pRipple
                 icon="pi pi-pencil"
                 class="p-button-rounded p-button-success product-item__edit"
-                (click)="openEditProductDialog(product)"
+                (click)="handleOpenEditProductDialog(product)"
               ></button>
               <button
                 pButton
@@ -163,140 +152,186 @@
       styleClass="p-fluid"
     >
       <ng-template pTemplate="content">
-        <div class="field" *ngIf="productImg.length">
-          <div class="flex overflow-x-scroll">
-            <div class="product-image-list">
-              <!-- *ngFor="let thumbnail of product.thumbnail" -->
-              <img
-                *ngFor="let imgPath of productImg"
-                class="product-image"
-                [src]="imgPath"
-              />
+        <div class="row" *ngIf="productImg.length">
+          <div class="col-12">
+            <div class="flex overflow-x-scroll">
+              <div class="product-image-list">
+                <img
+                  *ngFor="let imgPath of productImg"
+                  class="product-image"
+                  [src]="imgPath"
+                />
+              </div>
             </div>
           </div>
         </div>
-        <div class="field">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            pInputText
-            id="name"
-            [(ngModel)]="product.name"
-            required
-            autofocus
-            autocomplete="off"
-          />
-          <small class="p-error" *ngIf="submitted && !product.name"
-            >Name is required.</small
-          >
-        </div>
-        <div class="field">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            pInputTextarea
-            [(ngModel)]="product.description"
-            required
-            rows="3"
-            cols="20"
-          ></textarea>
-        </div>
-        <div class="field">
-          <label for="name">Product Image</label>
-          <p-fileUpload
-            name="demo[]"
-            (onUpload)="onUpload($event)"
-            [multiple]="true"
-            accept="image/*"
-            [maxFileSize]="1000000"
-            url="./upload.php"
-          >
-            <ng-template pTemplate="content">
-              <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">
-                  {{ file.name }} - {{ file.size }} bytes
-                </li>
-              </ul>
-            </ng-template>
-          </p-fileUpload>
-        </div>
-        <div class="field">
-          <label for="inventoryStatus">Inventory Status</label>
-          <!-- [(ngModel)]="product.inventoryStatus" -->
-          <p-dropdown
-            inputId="inventoryStatus"
-            placeholder="Select"
-            [options]="statuses"
-          >
-            <ng-template let-option pTemplate="item">
-              <span [class]="'product-badge status-' + option.value">
-                {{ option.label }}
-              </span>
-            </ng-template>
-          </p-dropdown>
-        </div>
-        <div class="field">
-          <label class="mb-3">Category</label>
-          <div class="formgrid grid">
-            <div class="field-radiobutton col-3">
-              <p-radioButton
-                id="category1"
-                value="Bag"
-                [(ngModel)]="product.category.name"
-              ></p-radioButton>
-              <label for="category1">Bag</label>
-            </div>
-            <div class="field-radiobutton col-3">
-              <p-radioButton
-                id="category2"
-                value="Shirt"
-                [(ngModel)]="product.category.name"
-              ></p-radioButton>
-              <label for="category2">Shirt</label>
-            </div>
-            <div class="field-radiobutton col-3">
-              <p-radioButton
-                id="category3"
-                value="Pant"
-                [(ngModel)]="product.category.name"
-              ></p-radioButton>
-              <label for="category3">Pant</label>
-            </div>
-            <div class="field-radiobutton col-3">
-              <p-radioButton
-                id="category4"
-                value="Accessory"
-                [(ngModel)]="product.category.name"
-              ></p-radioButton>
-              <label for="category4">Accessory</label>
-            </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="label-text" for="name">Mã sản phẩm</label>
+            <input
+              type="text"
+              pInputText
+              id="id"
+              required
+              autofocus
+              autocomplete="off"
+              [ngModel]="product.id"
+            />
           </div>
         </div>
-        <div class="field">
-          <label for="name">Rating</label>
-          <p-rating
-            [(ngModel)]="product.thumbnail[0].star"
-            [cancel]="false"
-          ></p-rating>
+        <div class="row">
+          <div class="col-12">
+            <label class="label-text" for="name">Name</label>
+            <input
+              type="text"
+              pInputText
+              id="name"
+              required
+              autocomplete="off"
+              [ngModel]="product.name"
+            />
+          </div>
         </div>
-        <div class="formgrid grid">
-          <div class="field col-sm-6">
+        <div class="row">
+          <div class="col-12">
+            <label class="label-text" for="name">Product Image</label>
+            <p-fileUpload
+              name="demo[]"
+              (onUpload)="onUpload($event)"
+              [multiple]="true"
+              accept="image/*"
+              [maxFileSize]="1000000"
+              url="./upload.php"
+            >
+              <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                  <li *ngFor="let file of uploadedFiles">
+                    {{ file.name }} - {{ file.size }} bytes
+                  </li>
+                </ul>
+              </ng-template>
+            </p-fileUpload>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label class="label-text mb-3">Category</label>
+            <!-- <div class="formgrid grid">
+            <ng-container *ngFor="let category of categories">
+              <div class="field-radiobutton col-3">
+                <mat-radio-group name="categories">
+                  <mat-radio-button color="primary" [value]="category.name">
+                    {{ category.name }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </ng-container>
+          </div> -->
+            <!-- <p-treeSelect  [options]="nodes1" placeholder="Select Item"></p-treeSelect> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ng-container *ngFor="let item of detailRow">
+              <div class="row">
+                <div class="col-4">
+                  <label class="label-text">Colors</label>
+                  <p-dropdown
+                    placeholder="Select color"
+                    [options]="colors"
+                    optionLabel="colorName"
+                    [(ngModel)]="item.color"
+                  >
+                    <ng-template let-color pTemplate="item">
+                      <span>
+                        {{ color.colorName }}
+                      </span>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+                <div class="col-4">
+                  <label class="label-text">Sizes</label>
+                  <p-dropdown
+                    placeholder="Select size"
+                    [options]="sizes"
+                    optionLabel="name"
+                    [(ngModel)]="item.size"
+                  >
+                    <ng-template let-size pTemplate="item">
+                      <span>
+                        {{ size.name }}
+                      </span>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+                <div class="col-3">
+                  <div class="product-item__quantity">
+                    <label class="label-text" for="quantity">Quantity</label>
+                    <p-inputNumber
+                      id="quantity"
+                      [(ngModel)]="item.quantity"
+                    ></p-inputNumber>
+                  </div>
+                </div>
+                <div class="col-1">
+                  <div class="times">
+                    <button
+                      pButton
+                      pRipple
+                      type="button"
+                      icon="pi pi-times"
+                      class="p-button-rounded p-button-secondary"
+                      (click)="handleDeleteColorAndSize(item)"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-plus"
+              class="p-button-rounded p-button-secondary"
+              style="color: #333"
+              (click)="handleAddColorAndSize()"
+            ></button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="label-text" for="description">Description</label>
+            <textarea
+              id="description"
+              pInputTextarea
+              required
+              rows="3"
+              cols="20"
+              [ngModel]="product.description"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
             <div class="product-item__price">
-              <label for="priceOut">Price</label>
+              <label class="label-text" for="priceOut">Price</label>
               <p-inputNumber
                 id="priceOut"
-                [(ngModel)]="product.price"
                 mode="currency"
                 currency="VND"
                 locale="en-US"
               ></p-inputNumber>
             </div>
           </div>
-          <div class="field col-sm-6">
-            <div class="product-item__quantity">
-              <label for="quantity">Quantity</label>
-              <!-- [(ngModel)]="product.quantity" -->
-              <p-inputNumber id="quantity"></p-inputNumber>
+          <div class="col-6">
+            <div class="product-item__price">
+              <label class="label-text" for="priceOut">Discount</label>
+              <p-inputNumber
+                id="priceOut"
+                mode="currency"
+                currency="VND"
+                locale="en-US"
+              ></p-inputNumber>
             </div>
           </div>
         </div>
@@ -309,7 +344,7 @@
           label="Cancel"
           icon="pi pi-times"
           class="p-button-text"
-          (click)="hideDialog()"
+          (click)="handleCloseDialog()"
         ></button>
         <button
           pButton
@@ -317,8 +352,9 @@
           label="Save"
           icon="pi pi-check"
           class="p-button-text"
-          (click)="saveProduct()"
+          (click)="handleLog()"
         ></button>
+        <!-- (click)="saveProduct()" -->
       </ng-template>
     </p-dialog>
 

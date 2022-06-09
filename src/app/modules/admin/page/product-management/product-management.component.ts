@@ -2,7 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IProduct } from 'app/modules/shop/type/shop.type';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { ProductManagementService } from '../../services/ProductManagementService/product-management.service';
+import { combineLatest } from 'rxjs';
+import {
+  ICategories,
+  IColors,
+  IDetailRow,
+  ISizes,
+} from '../../type/product-management.type';
+import { ProductManagementService } from './../../services/ProductManagementService/product-management.service';
 
 @Component({
   selector: 'app-product-management',
@@ -15,20 +22,85 @@ export class ProductManagementComponent implements OnInit {
   products!: IProduct[];
   product!: IProduct;
   selectedProducts?: IProduct[] | null;
-  submitted!: boolean;
   statuses!: any[];
   uploadedFiles: any[] = [];
   productImg: string[] = [];
   totalProducts: number = 0;
+  categories: ICategories[] = [];
+  colors: IColors[] = [];
+  sizes: ISizes[] = [];
+  detailRow: IDetailRow[] = [
+    {
+      color: {} as IColors,
+      size: {} as ISizes,
+      quantity: 0,
+    },
+    {
+      color: {} as IColors,
+      size: {} as ISizes,
+      quantity: 0,
+    },
+    {
+      color: {} as IColors,
+      size: {} as ISizes,
+      quantity: 0,
+    },
+  ];
   constructor(
     private productService: ProductManagementService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {}
-  openNew() {
-    this.resetProduct();
-    this.submitted = false;
+  paginate(event: any) {
+    this.productService.getProducts({ page: event.page + 1, size: 6 });
+  }
+  handleOpenEditProductDialog(product: IProduct) {
+    console.log(product);
+    this.productService.currentProduct = product;
+    this.product.thumbnail.map((thumbnail) => {
+      thumbnail.urlImages.map((item) => {
+        this.productImg.push(item);
+      });
+    });
     this.productDialog = true;
+  }
+  handleOpenAddProductDialog() {
+    this.productDialog = true;
+  }
+  handleCloseDialog() {
+    this.productImg = [];
+    this.productService.currentProduct = {
+      thumbnail: [{}],
+      category: {},
+    } as IProduct;
+    this.productDialog = false;
+  }
+  handleAddColorAndSize() {
+    const newArr = [
+      ...this.detailRow,
+      {
+        color: {} as IColors,
+        size: {} as ISizes,
+        quantity: NaN,
+      },
+    ];
+    this.detailRow = newArr;
+  }
+  handleDeleteColorAndSize(value: IDetailRow) {
+    const newArr = this.detailRow.filter((item: IDetailRow) => item !== value);
+    this.detailRow = newArr;
+  }
+  handleLog() {
+    this.detailRow.map((item: IDetailRow) => {
+      console.log(
+        'call api: ' +
+          item.color.colorName +
+          ', ' +
+          item.size.name +
+          ', ' +
+          item.quantity
+      );
+    });
   }
   deleteSelectedProducts() {
     this.confirmationService.confirm({
@@ -57,7 +129,6 @@ export class ProductManagementComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.productService.deleteProduct(product.id!);
-        this.resetProduct();
       },
     });
   }
@@ -87,42 +158,35 @@ export class ProductManagementComponent implements OnInit {
       detail: '',
     });
   }
-  openEditProductDialog(product: IProduct) {
-    this.product = product;
-    this.productImg = [];
-    this.product.thumbnail.map((thumbnail) => {
-      thumbnail.urlImages.map((item) => {
-        this.productImg.push(item);
-      });
-    });
-    this.productDialog = true;
-  }
-  hideDialog() {
-    this.productDialog = false;
-    this.submitted = false;
-  }
   handleFilterBlobal(event: Event) {
     this.productTable.filterGlobal(
       (event.target! as HTMLInputElement).value,
       'contains'
     );
   }
-  resetProduct() {
-    this.productImg = [];
-    this.product = {
-      thumbnail: [{}],
-      category: {},
-    } as IProduct;
-  }
-  paginate(event: any) {
-    this.productService.getProducts({ page: event.page + 1, size: 6 });
-  }
+
   ngOnInit(): void {
     this.productService.getProducts({ page: 1, size: 6 });
-    this.productService.products$.subscribe((data) => (this.products = data));
-    this.productService.totalProducts$.subscribe(
-      (data) => (this.totalProducts = data)
-    );
+    this.productService.getCategories();
+    this.productService.getColors();
+    this.productService.getSizes();
+
+    combineLatest([
+      this.productService.products$,
+      this.productService.totalProducts$,
+      this.productService.categories$,
+      this.productService.colors$,
+      this.productService.sizes$,
+      this.productService.currentProduct$,
+    ]).subscribe((data) => {
+      this.products = data[0];
+      this.totalProducts = data[1];
+      this.categories = data[2];
+      this.colors = data[3];
+      this.sizes = data[4];
+      this.product = data[5];
+    });
+
     this.statuses = [
       { label: 'INSTOCK', value: 'instock' },
       { label: 'LOWSTOCK', value: 'lowstock' },
