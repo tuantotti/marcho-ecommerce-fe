@@ -37,4 +37,12 @@ export interface IProduct {
   category?: ICategory;
 }
 
-export interface IProductFeedback {}
+export interface IProductFeedback {
+  id?: number;
+  message: string;
+  createdAt: any;
+  vote: number;
+  email: string;
+  username: string;
+  prodId?: string;
+}

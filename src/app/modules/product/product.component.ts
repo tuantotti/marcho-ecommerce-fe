@@ -22,11 +22,11 @@ export class ProductComponent implements OnInit {
   product!: IProduct;
   feedbackList!: IProductFeedback[];
   cartProducts!: IProduct[];
-  formReview: FormGroup = new FormGroup({
-    rating: new FormControl(4),
-    name: new FormControl('', [Validators.required]),
+  formFeedback: FormGroup = new FormGroup({
+    vote: new FormControl(4),
+    username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    description: new FormControl(''),
+    message: new FormControl(''),
   });
   productInfo: FormGroup = new FormGroup({
     colorNSize: new FormControl(),
@@ -69,13 +69,22 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  handleAddReview() {}
+  handleAddReview() {
+    this.productService.saveProductFeedback({
+      ...this.formFeedback.value,
+      proId: this.id,
+      createAt: Date.now(),
+    });
+  }
 
+  getRandomTime() {
+    return new Date();
+  }
   ngOnInit(): void {
     this.id = this.activeRouter.snapshot.params['id'];
 
     this.productService.getProduct(this.id);
-    // this.productService.getProductReview(this.id);
+    this.productService.getProductFeedback(this.id);
 
     this.productService.product$.subscribe((data) => {
       this.product = data;
@@ -86,7 +95,7 @@ export class ProductComponent implements OnInit {
       this.thumbnailImgList = arr;
     });
     this.productService.productFeedback$.subscribe(
-      (data) => (this.feedbackList = data)
+      (data) => ((this.feedbackList = data), console.log(data))
     );
 
     this.selectedSize = this.sizes[1];

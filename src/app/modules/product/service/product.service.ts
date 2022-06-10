@@ -31,7 +31,16 @@ export class ProductService {
   getProductFeedback(id: string) {
     this.productApiService
       .getProductFeedback(id)
-      .subscribe((data) => this.productBS.next(data.content));
+      .subscribe((data) => this.productFeedbackBS.next(data.content));
+  }
+  saveProductFeedback(feedback: IProductFeedback) {
+    this.productApiService.saveProductFeedback(feedback).subscribe(
+      (data) => {
+        this.toastr.success('Send feedback successfully!'),
+          this.getProductFeedback(feedback.prodId!);
+      },
+      (error) => this.toastr.error('Send feedback error!')
+    );
   }
 
   // getProductReview(id: string) {

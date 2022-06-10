@@ -18,9 +18,15 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // Get the auth token from the service.
     const token = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('X-Account-Id');
     if (token) {
       // Clone the request and set the new header in one step.
-      req = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+          'X-Account-Id': userId as string,
+        },
+      });
     }
     return next.handle(req);
   }

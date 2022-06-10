@@ -51,17 +51,10 @@ export class ProductManagementComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {}
   paginate(event: any) {
-    this.productService.getProducts({ page: event.page + 1, size: 6 });
+    this.productService.getProducts({ page: event.page, size: 6 });
   }
   handleOpenEditProductDialog(product: IProduct) {
     this.productService.getProductDetail(product.id!);
-
-    // this.productService.currentProduct = product;
-    // this.product.thumbnail.map((thumbnail) => {
-    //   thumbnail.urlImages.map((item) => {
-    //     this.productImg.push(item);
-    //   });
-    // });
     this.productDialog = true;
   }
   handleOpenAddProductDialog() {
@@ -233,6 +226,11 @@ export class ProductManagementComponent implements OnInit {
               multipartFiles: item.urlImages,
             },
           ];
+        });
+      });
+      this.product.colors?.map((color) => {
+        color.urlImages.map((item) => {
+          this.productImg.push(item);
         });
       });
       this.detailDataRowBS = arr;
