@@ -174,7 +174,16 @@
     box-shadow: 0 1px 5px #d9d9d9;
   }
   .pi.pi-times {
-    color: #333;
+    color: #fff;
+  }
+  p-button[ng-reflect-icon="pi pi-upload"] {
+    display: none;
+  }
+  .mat-radio-label-content {
+    text-transform: capitalize;
+  }
+  .p-fileupload {
+    margin-top: 20px;
   }
   /* Responsive */
   .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
@@ -225,6 +234,7 @@
 .label-text {
   display: inline-block;
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 .grid {
   display: flex;
@@ -240,7 +250,7 @@
 .field-radiobutton {
   margin-bottom: 1rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding-left: 8px;
   & > label {
     margin-left: 0.5rem;
@@ -261,6 +271,27 @@
   align-items: center;
   justify-content: flex-end;
   flex-direction: column;
+}
+
+.category-item__text {
+  text-transform: capitalize;
+  font-size: 16px;
+  color: #333;
+}
+
+.category-item__wrapper,
+.category-item__wrapper-radio-btn {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: flex-start;
+}
+.category-item__wrapper-radio-btn {
+  margin-left: 10px;
+}
+.choose-color-dropdown__label {
+  display: block;
+  margin-bottom: 20px;
 }
 @media screen and (max-width: 960px) {
   :host ::ng-deep {

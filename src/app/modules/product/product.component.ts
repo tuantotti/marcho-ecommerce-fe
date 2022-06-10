@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../cart/service/cart.service';
 import { ProductService } from './service/product.service';
-import { IProduct, IProductReview } from './type/product.type';
+import { IProduct, IProductFeedback } from './type/product.type';
 
 @Component({
   selector: 'app-product',
@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
   ) {}
   id!: string;
   product!: IProduct;
-  reviewList!: IProductReview[];
+  feedbackList!: IProductFeedback[];
   cartProducts!: IProduct[];
   formReview: FormGroup = new FormGroup({
     rating: new FormControl(4),
@@ -59,7 +59,6 @@ export class ProductComponent implements OnInit {
   }
 
   handleAddProduct() {
-    // console.log(this.productInfo.get('colorNSize')!.value.colorId);
     console.log({
       id: this.product.id,
       name: this.product.name,
@@ -81,13 +80,13 @@ export class ProductComponent implements OnInit {
     this.productService.product$.subscribe((data) => {
       this.product = data;
       let arr: any = [];
-      this.product.colors.map((color) => {
-        console.log((arr = [...arr, ...color.urlImages.map((item) => item)]));
+      this.product.colors?.map((color) => {
+        arr = [...arr, ...color.urlImages.map((item) => item)];
       });
       this.thumbnailImgList = arr;
     });
-    this.productService.productReview$.subscribe(
-      (data) => (this.reviewList = data)
+    this.productService.productFeedback$.subscribe(
+      (data) => (this.feedbackList = data)
     );
 
     this.selectedSize = this.sizes[1];

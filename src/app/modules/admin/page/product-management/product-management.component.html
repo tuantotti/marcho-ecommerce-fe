@@ -195,13 +195,31 @@
         <div class="row">
           <div class="col-12">
             <label class="label-text" for="name">Product Image</label>
+            <div>
+              <label class="label-text" style="font-weight: 300" for="name"
+                >Choose Product Color</label
+              >
+
+              <p-dropdown
+                placeholder="Select Color"
+                [options]="colorListOfProduct"
+                optionLabel="colorName"
+                [(ngModel)]="colorUploadImg"
+              >
+                <ng-template let-item pTemplate="item">
+                  <span>
+                    {{ item.colorName }}
+                  </span>
+                </ng-template>
+              </p-dropdown>
+            </div>
             <p-fileUpload
               name="demo[]"
-              (onUpload)="onUpload($event)"
+              (onSelect)="handleUploadImg($event, $event, $event)"
+              (onRemove)="handleRemoveImg($event, $event)"
               [multiple]="true"
               accept="image/*"
-              [maxFileSize]="1000000"
-              url="./upload.php"
+              [maxFileSize]="3000000"
             >
               <ng-template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
@@ -214,19 +232,45 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12">
             <label class="label-text mb-3">Category</label>
-            <!-- <div class="formgrid grid">
-            <ng-container *ngFor="let category of categories">
-              <div class="field-radiobutton col-3">
-                <mat-radio-group name="categories">
-                  <mat-radio-button color="primary" [value]="category.name">
-                    {{ category.name }}
-                  </mat-radio-button>
-                </mat-radio-group>
+
+            <mat-radio-group
+              [value]="product.category?.id"
+              (change)="handleChangeCategory($event)"
+              name="categories"
+            >
+              <div class="formgrid grid">
+                <ng-container *ngFor="let category of categories">
+                  <div
+                    *ngIf="category.parentId == '0'"
+                    class="field-radiobutton col-3"
+                  >
+                    <div class="category-item__wrapper">
+                      <mat-radio-button
+                        color="primary"
+                        [value]="category"
+                        [checked]="product.category?.id === category.id"
+                      >
+                        {{ category.name }}
+                      </mat-radio-button>
+                      <div class="category-item__wrapper-radio-btn">
+                        <ng-container *ngFor="let item of categories">
+                          <mat-radio-button
+                            *ngIf="item.parentId === category.id"
+                            color="primary"
+                            [value]="item"
+                            [checked]="product.category?.id === item.id"
+                          >
+                            {{ item.name }}
+                          </mat-radio-button>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </div>
-            </ng-container>
-          </div> -->
+            </mat-radio-group>
             <!-- <p-treeSelect  [options]="nodes1" placeholder="Select Item"></p-treeSelect> -->
           </div>
         </div>
@@ -282,6 +326,7 @@
                       icon="pi pi-times"
                       class="p-button-rounded p-button-secondary"
                       (click)="handleDeleteColorAndSize(item)"
+                      style="color: #333"
                     ></button>
                   </div>
                 </div>
@@ -320,6 +365,7 @@
                 mode="currency"
                 currency="VND"
                 locale="en-US"
+                [(ngModel)]="product.priceOut"
               ></p-inputNumber>
             </div>
           </div>

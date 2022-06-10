@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IProduct } from 'app/modules/shop/type/shop.type';
+import { MatRadioChange } from '@angular/material/radio';
+import {
+  IColors as IColorsProduct,
+  IProduct,
+} from 'app/modules/product/type/product.type';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import {
   ICategories,
   IColors,
@@ -29,23 +33,18 @@ export class ProductManagementComponent implements OnInit {
   categories: ICategories[] = [];
   colors: IColors[] = [];
   sizes: ISizes[] = [];
-  detailRow: IDetailRow[] = [
-    {
-      color: {} as IColors,
-      size: {} as ISizes,
-      quantity: 0,
-    },
-    {
-      color: {} as IColors,
-      size: {} as ISizes,
-      quantity: 0,
-    },
-    {
-      color: {} as IColors,
-      size: {} as ISizes,
-      quantity: 0,
-    },
-  ];
+  detailRow!: IDetailRow[];
+  fd = new FormData();
+  colorListOfProduct: IColors[] = [];
+  colorUploadImg!: IColorsProduct;
+  detailDataRow = new BehaviorSubject<any[]>([]);
+
+  get detailDataRow$() {
+    return this.detailDataRow.asObservable();
+  }
+  set detailDataRowBS(value: any) {
+    this.detailDataRow.next(value);
+  }
   constructor(
     private productService: ProductManagementService,
     private messageService: MessageService,
@@ -55,13 +54,14 @@ export class ProductManagementComponent implements OnInit {
     this.productService.getProducts({ page: event.page + 1, size: 6 });
   }
   handleOpenEditProductDialog(product: IProduct) {
-    console.log(product);
-    this.productService.currentProduct = product;
-    this.product.thumbnail.map((thumbnail) => {
-      thumbnail.urlImages.map((item) => {
-        this.productImg.push(item);
-      });
-    });
+    this.productService.getProductDetail(product.id!);
+
+    // this.productService.currentProduct = product;
+    // this.product.thumbnail.map((thumbnail) => {
+    //   thumbnail.urlImages.map((item) => {
+    //     this.productImg.push(item);
+    //   });
+    // });
     this.productDialog = true;
   }
   handleOpenAddProductDialog() {
@@ -69,38 +69,46 @@ export class ProductManagementComponent implements OnInit {
   }
   handleCloseDialog() {
     this.productImg = [];
-    this.productService.currentProduct = {
-      thumbnail: [{}],
-      category: {},
-    } as IProduct;
+    this.productService.currentProduct = {} as IProduct;
     this.productDialog = false;
   }
   handleAddColorAndSize() {
     const newArr = [
-      ...this.detailRow,
+      ...this.detailDataRow.getValue(),
       {
         color: {} as IColors,
         size: {} as ISizes,
-        quantity: NaN,
+        quantity: 0,
+        multipartFiles: [],
       },
     ];
-    this.detailRow = newArr;
+    // const newArr = [
+    //   ...this.detailRow,
+    //   {
+    //     color: {} as IColors,
+    //     size: {} as ISizes,
+    //     quantity: 0,
+    //     multipartFiles: [],
+    //   },
+    // ];
+    // this.detailRow = newArr;
+    this.detailDataRowBS = newArr;
+
+    console.log(this.detailDataRow.getValue());
   }
   handleDeleteColorAndSize(value: IDetailRow) {
-    const newArr = this.detailRow.filter((item: IDetailRow) => item !== value);
-    this.detailRow = newArr;
+    const newArr = this.detailDataRow
+      .getValue()
+      .filter((item: IDetailRow) => item !== value);
+    this.detailDataRowBS = newArr;
+    // const newArr = this.detailRow.filter((item: IDetailRow) => item !== value);
+    // this.detailRow = newArr;
   }
   handleLog() {
-    this.detailRow.map((item: IDetailRow) => {
-      console.log(
-        'call api: ' +
-          item.color.colorName +
-          ', ' +
-          item.size.name +
-          ', ' +
-          item.quantity
-      );
-    });
+    // console.log(this.detailRow);
+    console.log(this.detailDataRow.getValue());
+    console.log(this.product);
+    console.log(this.colorUploadImg);
   }
   deleteSelectedProducts() {
     this.confirmationService.confirm({
@@ -146,17 +154,40 @@ export class ProductManagementComponent implements OnInit {
     //   this.resetProduct();
     // }
   }
-  onUpload(event: any) {
-    console.log(event);
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
+
+  handleUploadImg(originalEvent: any, files: any, currentFiles: any) {
+    currentFiles.currentFiles.map((file: File) => {
+      this.fd.append('image', file, file.name);
+    });
+    let list: File[] = [];
+    for (var pair of this.fd.entries()) {
+      list = [...list, pair[1] as File];
     }
+    const value = (this.detailDataRow.getValue()[
+      this.detailDataRow.getValue().length - 1
+    ].multipartFiles = this.fd);
+    this.detailDataRowBS = value;
+    // this.detailRow[this.detailRow.length - 1].multipartFiles = this.fd;
 
     this.messageService.add({
       severity: 'info',
       summary: 'File Uploaded',
       detail: '',
     });
+  }
+
+  handleRemoveImg(originalEvent: any, file: any) {
+    // Update formData when remove img
+    let list: File[] = [];
+    for (var pair of this.fd.entries()) {
+      list = [...list, pair[1] as File];
+    }
+    list = list.filter((item) => item.name !== file.file.name);
+    this.fd = new FormData();
+    list.map((file: File) => {
+      this.fd.append('image', file, file.name);
+    });
+    console.log(list);
   }
   handleFilterBlobal(event: Event) {
     this.productTable.filterGlobal(
@@ -165,8 +196,13 @@ export class ProductManagementComponent implements OnInit {
     );
   }
 
+  handleChangeCategory(event: MatRadioChange) {
+    this.product.category = event.value;
+    console.log(this.product);
+  }
+
   ngOnInit(): void {
-    this.productService.getProducts({ page: 1, size: 6 });
+    this.productService.getProducts({ page: 0, size: 6 });
     this.productService.getCategories();
     this.productService.getColors();
     this.productService.getSizes();
@@ -185,6 +221,31 @@ export class ProductManagementComponent implements OnInit {
       this.colors = data[3];
       this.sizes = data[4];
       this.product = data[5];
+      let arr: any = [];
+      this.product.colors?.map((item) => {
+        item.sizes?.map((s) => {
+          arr = [
+            ...arr,
+            {
+              color: item.color,
+              size: s.size,
+              quantity: s.quantity,
+              multipartFiles: item.urlImages,
+            },
+          ];
+        });
+      });
+      this.detailDataRowBS = arr;
+      // this.detailRow = arr;
+    });
+
+    this.detailDataRow$.subscribe((data) => {
+      console.log(data);
+      this.detailRow = data;
+      this.colorListOfProduct = Array.from(
+        new Set(this.detailDataRow.getValue().map((item) => item.color))
+      );
+      console.log(this.colorListOfProduct);
     });
 
     this.statuses = [
