@@ -29,6 +29,7 @@ export class AuthenticationService {
       (data) => {
         localStorage.setItem('accessToken', data['x-access-token']);
         localStorage.setItem('role', JSON.stringify(data.roles));
+        localStorage.setItem('X-Account-Id', JSON.stringify(data.userId));
         this.toastr.success('Login Successfully!');
         this.router.navigate(['/home']);
       },

@@ -53,7 +53,7 @@ export class ShopComponent implements OnInit {
     console.log(event.value);
   }
   paginate(event: any) {
-    this.shopService.getProducts({ page: event.page + 1, size: 6 });
+    this.shopService.getProducts({ page: event.page, size: 6 });
   }
   ngOnInit(): void {
     this.productManagementService.getColors();
@@ -70,7 +70,7 @@ export class ShopComponent implements OnInit {
       { label: 'Price Low to High', value: 'asc' },
       { label: 'Price High to Low', value: 'desc' },
     ];
-    this.shopService.getProducts({ page: 1, size: 6 });
+    this.shopService.getProducts({ page: 0, size: 6 });
 
     this.shopService.products$.subscribe((data) => (this.products = data));
     this.shopService.totalProducts$.subscribe(

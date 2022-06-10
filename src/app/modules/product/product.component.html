@@ -18,45 +18,39 @@
           <ng-template pTemplate="item" let-item>
             <img
               class="img-item"
-              [src]="
-                'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/6da1ae233d1c400d8baead9f0106a3d5_9366/Tat_Chay_Bo_Co_Thap_DJen_HE4969_03_standard.jpg'
-              "
+              [src]="item"
               alt="img"
               style="width: 100%; display: block"
             />
           </ng-template>
           <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
-              <img
-                class="img-thumbnail"
-                [src]="
-                  'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/6da1ae233d1c400d8baead9f0106a3d5_9366/Tat_Chay_Bo_Co_Thap_DJen_HE4969_03_standard.jpg'
-                "
-                alt="img"
-              />
+              <img class="img-thumbnail" [src]="item" alt="img" />
             </div>
           </ng-template>
         </p-galleria>
       </div>
       <div class="col-md-4">
         <form class="product-info" [formGroup]="productInfo">
-          <h3 class="product-info__name">product.name</h3>
+          <h3 class="product-info__name">{{ product.name }}</h3>
           <div class="product-info__cost">
-            <span class="product-info__cost-text">
+            <span class="product-info__cost-text">{{
               product.priceOut | currency: "VND"
-            </span>
+            }}</span>
             <div class="product-info__cost-rating">
               <p-rating
                 [readonly]="true"
                 [stars]="5"
                 [cancel]="false"
               ></p-rating>
-              ( 24 )
+              ({{ 24 }})
             </div>
           </div>
           <div class="product-info__description">
             <h3 class="product-info__title">Description:</h3>
-            <p class="product-info__description-text">product.description</p>
+            <p class="product-info__description-text">
+              {{ product.description }}
+            </p>
           </div>
           <div class="product-info__color">
             <h3 class="product-info__title">Color</h3>
@@ -68,7 +62,7 @@
                       <mat-radio-button
                         [value]="{ colorId: item.color.id, sizeId: s.size.id }"
                       >
-                        item.color.colorName ( s.size.name )
+                        {{ item.color.colorName }} ({{ s.size.name }})
                       </mat-radio-button>
                     </mat-radio-group>
                   </ng-container>
@@ -83,7 +77,7 @@
               </div>
               <div class="col-8">
                 <h3 class="product-info__category-detail">
-                  product.category?.name
+                  {{ product.category?.name }}
                 </h3>
               </div>
             </div>
@@ -99,20 +93,27 @@
     <div class="review-item" *ngFor="let feedback of feedbackList">
       <div class="row">
         <div class="col-1">
-          <!-- [src]="feedback.avatarPath" -->
-          <img alt="avatar" class="reviewer__avatar" />
+          <img
+            alt="avatar"
+            class="reviewer__avatar"
+            [src]="'https://picsum.photos/300/300'"
+          />
         </div>
         <div class="col-11">
           <div class="reviewer__human">
-            <h3 class="reviewer__name">feedback.name</h3>
+            <h3 class="reviewer__name">{{ feedback.username }}</h3>
             <span class="reviewer__time">
-              feedback.createdAt | date: "medium"
+              {{ feedback.createdAt || getRandomTime() | date: "medium" }}
             </span>
           </div>
-          <span class="reviewer__mail"> feedback.email </span>
-          <p-rating [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
-          <!-- [ngModel]="handleRatingReview(feedback.rating)" -->
-          <p class="reviewer__comment">feedback.description</p>
+          <span class="reviewer__mail">{{ feedback.email }}</span>
+          <p-rating
+            [readonly]="true"
+            [stars]="5"
+            [cancel]="false"
+            [ngModel]="feedback.vote"
+          ></p-rating>
+          <p class="reviewer__comment">{{ feedback.message }}</p>
           <div class="reviewer__reply">
             <i class="pi pi-reply"></i>
             <span>Reply</span>
@@ -121,7 +122,7 @@
       </div>
     </div>
     <form
-      [formGroup]="formReview"
+      [formGroup]="formFeedback"
       (ngSubmit)="handleAddReview()"
       class="my-review"
     >
@@ -134,7 +135,7 @@
               [ngModel]="4"
               [stars]="5"
               [cancel]="false"
-              formControlName="rating"
+              formControlName="vote"
             ></p-rating>
           </div>
         </div>
@@ -146,9 +147,9 @@
               id="float-input"
               type="text"
               pInputText
-              placeholder="Your name"
+              placeholder="Username"
               autocomplete="off"
-              formControlName="name"
+              formControlName="username"
             />
           </span>
         </div>
@@ -174,7 +175,7 @@
               pInputTextarea
               placeholder="Describe yourself here..."
               autocomplete="off"
-              formControlName="description"
+              formControlName="message"
             ></textarea>
           </span>
         </div>
