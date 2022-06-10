@@ -32,19 +32,9 @@ export interface IProduct {
   brand?: string;
   priceOut?: number;
   description?: string;
-  totalQuantity: number;
-  colors: IColors[];
-  category: ICategory;
+  totalQuantity?: number;
+  colors?: IColors[];
+  category?: ICategory;
 }
 
-export interface IProductReview {
-  postId: number;
-  createdAt: string;
-  name: string;
-  avatar: string;
-  email: string;
-  avatarPath: string;
-  description: string;
-  rating: number;
-  id: number;
-}
+export interface IProductFeedback {}

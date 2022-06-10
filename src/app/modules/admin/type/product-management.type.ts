@@ -43,4 +43,5 @@ export interface IDetailRow {
   color: IColors;
   size: ISizes;
   quantity: number;
+  multipartFiles?: any;
 }

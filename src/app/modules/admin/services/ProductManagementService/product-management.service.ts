@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IGetProducts, IProduct } from 'app/modules/shop/type/shop.type';
+import { IProduct } from 'app/modules/product/type/product.type';
+import { IGetProducts } from 'app/modules/shop/type/shop.type';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import {
@@ -19,7 +20,7 @@ export class ProductManagementService {
   ) {}
   private productsBS = new BehaviorSubject<IProduct[]>([]);
   private currentProductBS = new BehaviorSubject<IProduct>({
-    thumbnail: [{}],
+    colors: [{}],
     category: {},
   } as IProduct);
   private totalProductsBS = new BehaviorSubject<number>(0);
@@ -57,6 +58,11 @@ export class ProductManagementService {
         this.toast.error('Fetching data error!');
       }
     );
+  }
+  getProductDetail(id: string) {
+    this.productManagementApiService.getProductDetail(id).subscribe((data) => {
+      this.currentProductBS.next(data);
+    });
   }
   saveProduct(product: IProduct) {
     this.productManagementApiService.saveProduct(product).subscribe(

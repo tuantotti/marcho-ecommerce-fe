@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IGetProducts, IProduct } from 'app/modules/shop/type/shop.type';
+import { IProduct } from 'app/modules/product/type/product.type';
+import { IGetProducts } from 'app/modules/shop/type/shop.type';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import {
@@ -29,6 +30,9 @@ export class ProductManagementApiService {
     return this.http.get(
       `${this.API_URL}/api/products?page=${page}&size=${size}`
     );
+  }
+  getProductDetail(id: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/api/products/${id}`);
   }
   saveProduct(product: IProduct) {
     return this.http.post(`${this.API_URL}/product`, product);
