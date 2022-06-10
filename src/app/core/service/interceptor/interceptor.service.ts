@@ -24,7 +24,7 @@ export class InterceptorService implements HttpInterceptor {
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
-          'X-Account-Id': userId as string,
+          // 'X-Account-Id': userId as string,
         },
       });
     }
