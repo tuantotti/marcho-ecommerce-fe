@@ -15,10 +15,10 @@ export class ProductApiService {
     return this.http.get(`${this.API_URL}/api/products/${id}`);
   }
   getProductFeedback(id: string): Observable<any> {
-    return this.http.get(`${this.API_URL}/api/products/feedbacks?prodId=${id}`);
+    return this.http.get(`${this.API_URL}/api/feedbacks?prodId=${id}`);
   }
   saveProductFeedback(feedback: IProductFeedback): Observable<any> {
-    return this.http.post(`${this.API_URL}/api/products/feedbacks`, feedback);
+    return this.http.post(`${this.API_URL}/api/feedbacks`, feedback);
   }
   // saveReview(review: IProductReview): Observable<any> {
   //   return this.http.post(`${this.API_URL}/review`, review);
